@@ -42,12 +42,11 @@
       </StackPane>
       <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
          <center>
-            <TableView prefHeight="295.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="partTableView" prefHeight="295.0" prefWidth="600.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn prefWidth="140.0" text="Part IDs" />
-                <TableColumn prefWidth="140.0" text="Part Name" />
-                  <TableColumn prefWidth="140.0" text="Inventory Level" />
-                  <TableColumn prefWidth="140.0" text="Price/ Cost per Unit" />
+                <TableColumn fx:id="partTableIdCol" prefWidth="140.0" text="Part IDs" />
+                <TableColumn fx:id="partTableNameCol" prefWidth="140.0" text="Part Name" />
+                  <TableColumn fx:id="partTableInvCol" prefWidth="140.0" text="Inventory Level" />
               </columns>
             </TableView>
          </center>
@@ -110,7 +109,7 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Part ID or Name" />
+                              <TextField fx:id="partLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Part ID or Name" />
                            </children>
                         </StackPane>
                      </children>
@@ -121,12 +120,11 @@
       </BorderPane>
       <BorderPane layoutX="10.0" layoutY="40.0" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <center>
-            <TableView prefHeight="295.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="productTableView" prefHeight="295.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn prefWidth="140.0" text="Part IDs" />
                   <TableColumn prefWidth="140.0" text="Product Name" />
                   <TableColumn prefWidth="140.0" text="Inventory Level" />
-                  <TableColumn prefWidth="140.0" text="Price/ Cost per Unit" />
                </columns>
             </TableView>
          </center>
@@ -189,7 +187,7 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Product ID or Name" />
+                              <TextField fx:id="productLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Product ID or Name" />
                            </children>
                         </StackPane>
                      </children>

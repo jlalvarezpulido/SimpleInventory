@@ -1,8 +1,12 @@
 package View_Controller;
 import Main.Prompt;
+import Models.Inventory;
 import Models.Part;
 import Models.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -10,44 +14,61 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class MainFormController implements Initializable{
+
+    Inventory test = new Inventory();
     /**
      *Declarations for text fields
      * search
      */
-    public TextField searchPartText;
-    public TextField searchProductText;
-
+    @FXML private TextField partLookUp;
+    @FXML private TextField productLookUp;
     /**
-     *Declarations for Table View       had an error with primitive types
+     *Declarations for Table View
      */
     //part tableview
-    public TableView<Part> partTableView;
-    public TableColumn<Part, Integer> partIdCol; //Integer non primitive
-    public TableColumn<Part, String> partNameCol;
-    public TableColumn<Part, Integer> partInvCol;
-    public TableColumn<Part, Double> partPriceCostCol;
+    @FXML private TableView<Part> partTableView;
+    @FXML private TableColumn partTableIdCol;
+    @FXML private TableColumn partTableNameCol;
+    @FXML private TableColumn partTableInvCol;
     //product table view
-    public TableView<Product> productTableView;
-    public TableColumn<Product, Integer> productIdCol;
-    public TableColumn<Product, String> productNameCol;
-    public TableColumn<Product, Integer> productInvCol;
-    public TableColumn<Product, Double> productPriceCostCol;
+    @FXML private TableView<Product> productTableView;
+    private ObservableList<Part> partsInv;
+    private ObservableList<Product> productsInv;
+    private ObservableList<Part> partsInvSearch;
+    private ObservableList<Product> productsInvSearch;
 
-
-
-
+    /**
+     * Initializes the Main form class
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        partTableIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        partTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+
+    }
+
+    private void createPartsList(){
+        partsInv.setAll(test.getAllParts());
+        partTableView.setItems(partsInv);
+        partTableView.refresh();
+    }
+    private void createProductsList()
+    {
+        productsInv.setAll(test.getAllProducts());
+        productTableView.setItems(productsInv);
+        productTableView.refresh();
     }
 
     /**
