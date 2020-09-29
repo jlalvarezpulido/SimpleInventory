@@ -57,7 +57,7 @@
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="200.0">
                                  <children>
-                                    <TextField editable="false" promptText="Auto Gen - Disabled" />
+                                    <TextField fx:id="productIdAddText" editable="false" promptText="Auto Gen - Disabled" />
                                  </children>
                               </StackPane>
                            </children>
@@ -79,7 +79,7 @@
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="200.0">
                                  <children>
-                                    <TextField />
+                                    <TextField fx:id="nameProductAddText" />
                                  </children>
                               </StackPane>
                            </children>
@@ -105,7 +105,7 @@
                                        <children>
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="invProductAddText" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -127,7 +127,7 @@
                                        <children>
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="priceProductAddText" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -149,7 +149,7 @@
                                        <children>
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="maxProductAddText" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -203,7 +203,7 @@
                                        <children>
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="minProductAddText" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -241,7 +241,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
+                        <TextField fx:id="searchAddProductText" prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
                      </children>
                   </StackPane>
                </children>
@@ -258,7 +258,7 @@
                      <children>
                         <StackPane prefHeight="59.0" prefWidth="235.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="210.0" text="Remove Associated Part" />
+                              <Button mnemonicParsing="false" onAction="#removeAssociationButton" prefHeight="27.0" prefWidth="210.0" text="Remove Associated Part" />
                            </children>
                         </StackPane>
                      </children>
@@ -272,7 +272,7 @@
                      <children>
                         <StackPane prefHeight="60.0" prefWidth="130.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Save" />
+                              <Button mnemonicParsing="false" onAction="#saveProductButton" prefHeight="27.0" prefWidth="80.0" text="Save" />
                            </children>
                         </StackPane>
                      </children>
@@ -302,12 +302,12 @@
           <RowConstraints maxHeight="281.9883270263672" minHeight="10.0" prefHeight="192.54132080078125" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView prefHeight="197.0" prefWidth="271.0" GridPane.columnIndex="1">
+            <TableView fx:id="defaultProductInvTB" prefHeight="197.0" prefWidth="271.0" GridPane.columnIndex="1">
               <columns>
-                <TableColumn prefWidth="75.0" text="Part ID" />
-                <TableColumn prefWidth="95.0" text="Part Name" />
-                  <TableColumn prefWidth="95.0" text="Inventory Level" />
-                  <TableColumn prefWidth="128.0" text="Price/ Cost per Unit" />
+                <TableColumn fx:id="partIdProductCol" prefWidth="75.0" text="Part ID" />
+                <TableColumn fx:id="partNameProductCol" prefWidth="95.0" text="Part Name" />
+                  <TableColumn fx:id="InvProductCol" prefWidth="95.0" text="Inventory Level" />
+                  <TableColumn fx:id="priceProductCol" prefWidth="128.0" text="Price/ Cost per Unit" />
               </columns>
             </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -317,19 +317,19 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Add" />
+                              <Button mnemonicParsing="false" onAction="#addPartToProductButton" text="Add" />
                            </children>
                         </StackPane>
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <TableView layoutX="35.0" layoutY="10.0" prefHeight="197.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TableView fx:id="addedProductTB" layoutX="35.0" layoutY="10.0" prefHeight="197.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <columns>
-                  <TableColumn prefWidth="75.0" text="Part ID" />
-                  <TableColumn prefWidth="95.0" text="Part Name" />
-                  <TableColumn prefWidth="95.0" text="Inventory Level" />
-                  <TableColumn prefWidth="128.0" text="Price/ Cost per Unit" />
+                  <TableColumn fx:id="addedIdCol" prefWidth="75.0" text="Part ID" />
+                  <TableColumn fx:id="addedPartCol" prefWidth="95.0" text="Part Name" />
+                  <TableColumn fx:id="addedInvCol" prefWidth="95.0" text="Inventory Level" />
+                  <TableColumn fx:id="addedPriceCol" prefWidth="128.0" text="Price/ Cost per Unit" />
                </columns>
             </TableView>
          </children>
