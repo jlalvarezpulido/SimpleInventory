@@ -57,7 +57,7 @@
                                     <children>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <TextField editable="false" />
+                                                <TextField fx:id="modProdIdText" editable="false" />
                                             </children>
                                         </StackPane>
                                     </children>
@@ -79,7 +79,7 @@
                                     <children>
                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                             <children>
-                                                <TextField />
+                                                <TextField fx:id="modProdNameText" />
                                             </children>
                                         </StackPane>
                                     </children>
@@ -105,7 +105,7 @@
                                                     <children>
                                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                                             <children>
-                                                                <TextField />
+                                                                <TextField fx:id="modProductInvText" />
                                                             </children>
                                                         </StackPane>
                                                     </children>
@@ -127,7 +127,7 @@
                                                     <children>
                                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                                             <children>
-                                                                <TextField />
+                                                                <TextField fx:id="modProdPriceText" />
                                                             </children>
                                                         </StackPane>
                                                     </children>
@@ -149,7 +149,7 @@
                                                     <children>
                                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                                             <children>
-                                                                <TextField />
+                                                                <TextField fx:id="modProdMaxText" />
                                                             </children>
                                                         </StackPane>
                                                     </children>
@@ -203,7 +203,7 @@
                                                     <children>
                                                         <StackPane prefHeight="150.0" prefWidth="200.0">
                                                             <children>
-                                                                <TextField />
+                                                                <TextField fx:id="modProdMinText" />
                                                             </children>
                                                         </StackPane>
                                                     </children>
@@ -241,7 +241,7 @@
                     <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                             <children>
-                                <TextField prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
+                                <TextField fx:id="modProdSearch" prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
                             </children>
                         </StackPane>
                     </children>
@@ -258,7 +258,7 @@
                             <children>
                                 <StackPane prefHeight="59.0" prefWidth="235.0">
                                     <children>
-                                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="210.0" text="Remove Associated Part" />
+                                        <Button mnemonicParsing="false" onAction="#modRemoveAssociationButton" prefHeight="27.0" prefWidth="210.0" text="Remove Associated Part" />
                                     </children>
                                 </StackPane>
                             </children>
@@ -272,7 +272,7 @@
                             <children>
                                 <StackPane prefHeight="60.0" prefWidth="130.0">
                                     <children>
-                                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="80.0" text="Save" />
+                                        <Button mnemonicParsing="false" onAction="#modSaveButton" prefHeight="27.0" prefWidth="80.0" text="Save" />
                                     </children>
                                 </StackPane>
                             </children>
@@ -302,20 +302,20 @@
                 <RowConstraints maxHeight="281.9883270263672" minHeight="10.0" prefHeight="192.54132080078125" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TableView prefHeight="198.0" prefWidth="430.0" GridPane.columnIndex="1">
+                <TableView fx:id="modTopTV" prefHeight="198.0" prefWidth="430.0" GridPane.columnIndex="1">
                     <columns>
-                        <TableColumn prefWidth="95.0" text="Part ID" />
-                        <TableColumn prefWidth="95.0" text="Part Name" />
-                  <TableColumn prefWidth="95.0" text="Inventory Level" />
-                  <TableColumn prefWidth="125.0" text="Price/ Cost per Unit" />
+                        <TableColumn fx:id="modTopIdCol" prefWidth="95.0" text="Part ID" />
+                        <TableColumn fx:id="modTopNameCol" prefWidth="95.0" text="Part Name" />
+                  <TableColumn fx:id="modTopInvCol" prefWidth="95.0" text="Inventory Level" />
+                  <TableColumn fx:id="modTopPriceCol" prefWidth="125.0" text="Price/ Cost per Unit" />
                     </columns>
                 </TableView>
-                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <TableView fx:id="modBottomTV" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <columns>
-                        <TableColumn prefWidth="95.0" text="Part ID" />
-                        <TableColumn prefWidth="95.0" text="Part Name" />
-                  <TableColumn prefWidth="95.0" text="Inventory Level " />
-                  <TableColumn prefWidth="125.0" text="Price/ Cost per Unit" />
+                        <TableColumn fx:id="modBotIdCol" prefWidth="95.0" text="Part ID" />
+                        <TableColumn fx:id="modBotNameCol" prefWidth="95.0" text="Part Name" />
+                  <TableColumn fx:id="modBotInvCol" prefWidth="95.0" text="Inventory Level " />
+                  <TableColumn fx:id="modBotPriceCol" prefWidth="125.0" text="Price/ Cost per Unit" />
                     </columns>
                 </TableView>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -325,7 +325,7 @@
                             <children>
                                 <StackPane prefHeight="150.0" prefWidth="200.0">
                                     <children>
-                                        <Button mnemonicParsing="false" text="Add" />
+                                        <Button mnemonicParsing="false" onAction="#addModButton" text="Add" />
                                     </children>
                                 </StackPane>
                             </children>
