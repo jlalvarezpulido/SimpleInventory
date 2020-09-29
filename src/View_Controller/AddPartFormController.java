@@ -1,15 +1,16 @@
 package View_Controller;
 
+import Models.InHouse;
+import Models.Inventory;
+import Models.Outsourced;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,6 +59,35 @@ public class AddPartFormController implements Initializable {
 
 
     }
+    /**
+     * Save button method used to save the data
+     * create a part using wrapper methods to get the text and form it
+     * distinguish whether the part is inHouse or Outsourced with the if statements
+     * and create the part and add it to Inventory
+     */
+    @FXML
+    public void addPartSaveButtonPushed(ActionEvent event) throws IOException{
+        int id = Integer.parseInt(partIdTextAdd.getText());
+        String name = partNameTextAdd.getText();
+        double price = Double.parseDouble(partPriceCostTextAdd.getText());
+        int inv = Integer.parseInt(partInvTextAdd.getText());
+        int min = Integer.parseInt(partMinTextAdd.getText());
+        int max = Integer.parseInt(partMaxTextAdd.getText());
+        if(inHouseRadioButtonAdd.isSelected()){
+            int machineId = Integer.parseInt(partInheritedTextAdd.getText());
+            Inventory.addPart(new InHouse(id, name, price,inv, min, max, machineId)); //create in house part
+        }
+        if(outsourcedRadioButtonAdd.isSelected()){
+            String companyName = partInheritedTextAdd.getText();
+            Inventory.addPart(new Outsourced(id, name, price, inv, min, max, companyName)); //create outsourced part
+        }
+        //Return to the main menu screen after saving
+        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+        Scene goBack = new Scene(goBackParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(goBack);
+        window.show();
+    }
 
     /**
      * cancel button method used to go back to main form without passing any Objects
@@ -65,18 +95,11 @@ public class AddPartFormController implements Initializable {
     public void cancelButtonPushed(ActionEvent actionEvent) throws IOException {
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
-
-        //This line gets the stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(goBack);
         window.show();
     }
-    /**
-     * Save button method used to save the data
-     */
-    public void addPartSaveButtonPushed(){
 
-    }
 
 
     /**

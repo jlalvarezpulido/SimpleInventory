@@ -47,6 +47,7 @@
                 <TableColumn fx:id="partTableIdCol" prefWidth="140.0" text="Part IDs" />
                 <TableColumn fx:id="partTableNameCol" prefWidth="140.0" text="Part Name" />
                   <TableColumn fx:id="partTableInvCol" prefWidth="140.0" text="Inventory Level" />
+                  <TableColumn fx:id="partTablePriceCol" prefWidth="140.0" text="Price" />
               </columns>
             </TableView>
          </center>
@@ -125,6 +126,7 @@
                   <TableColumn fx:id="productTableIdCol" prefWidth="140.0" text="Part IDs" />
                   <TableColumn fx:id="productTableNameCol" prefWidth="140.0" text="Product Name" />
                   <TableColumn fx:id="productTableInvCol" prefWidth="140.0" text="Inventory Level" />
+                  <TableColumn fx:id="productTablePriceCol" prefWidth="140.0" text="Price" />
                </columns>
             </TableView>
          </center>

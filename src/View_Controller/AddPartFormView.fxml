@@ -94,7 +94,7 @@
                            <children>
                               <StackPane prefHeight="150.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="partIdTextAdd" editable="false" promptText="Auto Gen- Disabled" />
+                                    <TextField fx:id="partIdTextAdd" promptText="Auto Gen- Disabled" />
                                  </children>
                               </StackPane>
                            </children>

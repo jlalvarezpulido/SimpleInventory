@@ -1,9 +1,9 @@
 package View_Controller;
+
 import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,11 +40,13 @@ public class MainFormController implements Initializable{
     @FXML private TableColumn<Part, Integer> partTableIdCol;
     @FXML private TableColumn<Part, String> partTableNameCol;
     @FXML private TableColumn<Part, Integer> partTableInvCol;
+    @FXML private TableColumn<Part, Double> partTablePriceCol;
     //product table view
     @FXML private TableView<Product> productTableView;
     @FXML private TableColumn<Product, Integer> productTableIdCol;
     @FXML private TableColumn<Product, String> productTableNameCol;
     @FXML private TableColumn<Product, Integer> productTableInvCol;
+    @FXML private TableColumn<Product, Double> productTablePriceCol;
 
     private ObservableList<Part> partsInv;
     private ObservableList<Product> productsInv;
@@ -57,29 +59,22 @@ public class MainFormController implements Initializable{
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //This sets the Inventory lists to the appropriate table views
         partTableView.setItems(Inventory.getAllParts());
+        productTableView.setItems(Inventory.getAllProducts());
 
+        //Setting the Cell Factory Values so they could match the Setters and Getters of the Classes
         partTableIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        partTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         productTableIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         productTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     }
 
-    private void createPartsList(){
-        partsInv.setAll(test.getAllParts());
-        partTableView.setItems(partsInv);
-        partTableView.refresh();
-    }
-    private void createProductsList()
-    {
-        //productsInv.setAll(test.getAllProducts());
-        productTableView.setItems(Inventory.getAllProducts());
-        productTableView.refresh();
-    }
 
     /**
      * Main Forum buttons used to ChangeViews
@@ -88,7 +83,6 @@ public class MainFormController implements Initializable{
     public void addPartsButton(ActionEvent actionEvent) throws IOException {
         Parent addPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddPartFormView.fxml"));
         Scene addPartScene = new Scene(addPartParent);
-        //This line gets the stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(addPartScene);
         window.show();
@@ -100,7 +94,6 @@ public class MainFormController implements Initializable{
     public void modifyPartsButton(ActionEvent actionEvent) throws IOException{
         Parent modifyPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyPartFormView.fxml"));
         Scene modifyPartScene = new Scene(modifyPartParent);
-        //This line gets the stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(modifyPartScene);
         window.show();
@@ -112,7 +105,6 @@ public class MainFormController implements Initializable{
     public void addProductsButton(ActionEvent actionEvent) throws IOException{
         Parent addProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddProductFormView.fxml"));
         Scene addProductScene = new Scene(addProductParent);
-        //This line gets the stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(addProductScene);
         window.show();
@@ -124,7 +116,6 @@ public class MainFormController implements Initializable{
     public void modifyProductsButton(ActionEvent actionEvent) throws IOException{
         Parent modifyProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProductFormView.fxml"));
         Scene modifyProductScene = new Scene(modifyProductParent);
-        //This line gets the stage information
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         window.setScene(modifyProductScene);
         window.show();

@@ -13,7 +13,8 @@ public class Inventory{
 
     public static void addPart(Part newPart)
     {
-        allParts.add(newPart);
+        if(newPart != null)
+            allParts.add(newPart);
     }
 
    public static void addProduct(Product newProduct)
