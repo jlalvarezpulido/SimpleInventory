@@ -1,12 +1,12 @@
 package Models;
-/**
- * @author Jose Alvarez Pulido
- */
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * @author Jose Alvarez Pulido
+ */
 public class Inventory{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();

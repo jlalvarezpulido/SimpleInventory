@@ -122,9 +122,9 @@
          <center>
             <TableView fx:id="productTableView" prefHeight="295.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <columns>
-                  <TableColumn prefWidth="140.0" text="Part IDs" />
-                  <TableColumn prefWidth="140.0" text="Product Name" />
-                  <TableColumn prefWidth="140.0" text="Inventory Level" />
+                  <TableColumn fx:id="productTableIdCol" prefWidth="140.0" text="Part IDs" />
+                  <TableColumn fx:id="productTableNameCol" prefWidth="140.0" text="Product Name" />
+                  <TableColumn fx:id="productTableInvCol" prefWidth="140.0" text="Inventory Level" />
                </columns>
             </TableView>
          </center>

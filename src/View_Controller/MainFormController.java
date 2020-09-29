@@ -37,15 +37,20 @@ public class MainFormController implements Initializable{
      */
     //part tableview
     @FXML private TableView<Part> partTableView;
-    @FXML private TableColumn partTableIdCol;
-    @FXML private TableColumn partTableNameCol;
-    @FXML private TableColumn partTableInvCol;
+    @FXML private TableColumn<Part, Integer> partTableIdCol;
+    @FXML private TableColumn<Part, String> partTableNameCol;
+    @FXML private TableColumn<Part, Integer> partTableInvCol;
     //product table view
     @FXML private TableView<Product> productTableView;
+    @FXML private TableColumn<Product, Integer> productTableIdCol;
+    @FXML private TableColumn<Product, String> productTableNameCol;
+    @FXML private TableColumn<Product, Integer> productTableInvCol;
+
     private ObservableList<Part> partsInv;
     private ObservableList<Product> productsInv;
     private ObservableList<Part> partsInvSearch;
     private ObservableList<Product> productsInvSearch;
+
 
     /**
      * Initializes the Main form class
@@ -53,9 +58,14 @@ public class MainFormController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        partTableView.setItems(Inventory.getAllParts());
+
         partTableIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         partTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        productTableIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
     }
 
@@ -66,8 +76,8 @@ public class MainFormController implements Initializable{
     }
     private void createProductsList()
     {
-        productsInv.setAll(test.getAllProducts());
-        productTableView.setItems(productsInv);
+        //productsInv.setAll(test.getAllProducts());
+        productTableView.setItems(Inventory.getAllProducts());
         productTableView.refresh();
     }
 

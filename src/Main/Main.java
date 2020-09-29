@@ -20,8 +20,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Inventory inv = new Inventory();
-        addTestData(inv);
 
         Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         MainApplication = primaryStage;
@@ -31,12 +29,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
-    }
-
-    void addTestData(Inventory inv){
         Part a1 = new InHouse(1,"Part A1",2.99,10,5,100,101);
-        inv.addPart(a1);
+        Inventory.addPart(a1);
+        launch(args);
     }
 }
 
