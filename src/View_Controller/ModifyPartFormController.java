@@ -45,11 +45,8 @@ public class ModifyPartFormController implements Initializable {
     @FXML private TextField partMinTextModify;
 
     public int partIndex;
-    public Part part;
 
     public void sendPart(Part selectedPart) {
-        partIndex = (selectedPart.getId()) - 1;
-        part = selectedPart;
         partIdTextModify.setText(String.valueOf(selectedPart.getId()));
         partNameTextModify.setText(selectedPart.getName());
         partInvTextModify.setText(String.valueOf(selectedPart.getStock()));
@@ -68,6 +65,9 @@ public class ModifyPartFormController implements Initializable {
             outsourcedRadioButtonModify.setSelected(true);
         }
 
+    }
+    public void getPartIndex(int index){
+        partIndex = index;
     }
 
     @Override
@@ -98,9 +98,30 @@ public class ModifyPartFormController implements Initializable {
     /**
      * Save button method used to save the data
      */
-    public void modifyPartSaveButtonPushed()
+    public void modifyPartSaveButtonPushed(ActionEvent actionEvent) throws IOException
     {
-        //Inventory.updatePart(partIndex, part);
+        int id = Integer.parseInt(partIdTextModify.getText());
+        String name = partNameTextModify.getText();
+        double price = Double.parseDouble(partPriceCostTextModify.getText());
+        int inv = Integer.parseInt(partInvTextModify.getText());
+        int min = Integer.parseInt(partMinTextModify.getText());
+        int max = Integer.parseInt(partMaxTextModify.getText());
+        if(inHouseRadioButtonModify.isSelected())
+        {
+            int machineId = Integer.parseInt(partInheritedTextModify.getText());
+            Inventory.updatePart(partIndex, new InHouse(id, name, price, inv, min, max, machineId));
+        }
+        if(outsourcedRadioButtonModify.isSelected())
+        {
+            String companyName = partInheritedTextModify.getText();
+            Inventory.updatePart(partIndex, new Outsourced(id, name ,price, inv, min, max, companyName));
+        }
+        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+        Scene goBack = new Scene(goBackParent);
+        //This line gets the stage information
+        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        window.setScene(goBack);
+        window.show();
     }
 
 

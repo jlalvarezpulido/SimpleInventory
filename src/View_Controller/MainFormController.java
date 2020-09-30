@@ -100,6 +100,7 @@ public class MainFormController implements Initializable{
 
         ModifyPartFormController modifyPartController = loader.getController();
         modifyPartController.sendPart(partTableView.getSelectionModel().getSelectedItem());
+        modifyPartController.getPartIndex(partTableView.getSelectionModel().getSelectedIndex());
 
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent modifyPartParent = loader.getRoot();
