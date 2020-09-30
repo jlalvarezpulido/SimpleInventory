@@ -1,5 +1,6 @@
 package View_Controller;
 
+import Models.Part;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,23 +25,22 @@ public class ModifyPartFormController implements Initializable {
     /**
      *Declarations for the radio buttons and toggle group
      */
-   public ToggleGroup inheritedGroupModify;
-   public RadioButton inHouseRadioButtonModify;
-   public RadioButton outsourcedRadioButtonModify;
-   public Label inheritedLabelModify;
+   @FXML private ToggleGroup inheritedGroupModify;
+   @FXML private RadioButton inHouseRadioButtonModify;
+   @FXML private RadioButton outsourcedRadioButtonModify;
+   @FXML private Label inheritedLabelModify;
 
     /**
      * Declarations for text Fields
      */
-    public TextField partIdTextModify;
-    public TextField partNameTextModify;
-    public TextField partInvTextModify;
-    public TextField partPriceCostTextModify;
-    public TextField partMaxTextModify;
-    public TextField partInheritedTextModify;
-    public TextField partMinTextModify;
-
-
+    @FXML private TextField partIdTextModify;
+    @FXML private TextField partNameTextModify;
+    @FXML private TextField partInvTextModify;
+    @FXML private TextField partPriceCostTextModify;
+    @FXML private TextField partMaxTextModify;
+    @FXML private TextField partInheritedTextModify;
+    @FXML private TextField partMinTextModify;
+    private Part part;
 
 
     @Override
@@ -89,4 +89,5 @@ public class ModifyPartFormController implements Initializable {
             inheritedLabelModify.setText("Company Name");
         }
     }
+
 }

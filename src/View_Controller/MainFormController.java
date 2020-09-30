@@ -73,7 +73,9 @@ public class MainFormController implements Initializable{
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+
     }
+
 
 
     /**
