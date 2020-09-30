@@ -85,8 +85,10 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     public void saveProductButton(ActionEvent event) throws IOException {
-
-        int id = Integer.parseInt(productIdAddText.getText());
+        /*
+          auto generate IDs
+         */
+        int id = Inventory.getAllProducts().size() + 1;
         String name = nameProductAddText.getText();
         double price = Double.parseDouble(priceProductAddText.getText());
         int inv = Integer.parseInt(invProductAddText.getText());

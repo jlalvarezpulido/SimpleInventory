@@ -65,7 +65,10 @@ public class AddPartFormController implements Initializable {
      */
     @FXML
     public void addPartSaveButtonPushed(ActionEvent event) throws IOException{
-        int id = Integer.parseInt(partIdTextAdd.getText());
+        /*
+        auto generate IDs
+         */
+        int id = Inventory.getAllParts().size() + 1;
         String name = partNameTextAdd.getText();
         double price = Double.parseDouble(partPriceCostTextAdd.getText());
         int inv = Integer.parseInt(partInvTextAdd.getText());
