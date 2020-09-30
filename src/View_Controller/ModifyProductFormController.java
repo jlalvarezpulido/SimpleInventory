@@ -1,5 +1,6 @@
 package View_Controller;
 
+import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
@@ -87,9 +88,16 @@ public class ModifyProductFormController implements Initializable {
 
     @FXML
     void modRemoveAssociationButton(ActionEvent event) {
+        boolean deletePart;
         Part partSelected = modBottomTV.getSelectionModel().getSelectedItem();
         if(partSelected != null)
-            partListBuffer.remove(partSelected);
+        {
+            deletePart = Prompt.textBox("Removing Association","Are You sure you want to remove this association?");
+            if(deletePart)
+            {
+                partListBuffer.remove(partSelected);
+            }
+        }
     }
 
     @FXML

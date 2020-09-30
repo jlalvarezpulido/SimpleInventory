@@ -70,8 +70,8 @@ public class MainFormController implements Initializable{
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         //select get selection to highlight search
-        partTableView.getSelectionModel().select(Inventory.lookupPart(1));
-        productTableView.getSelectionModel().select(Inventory.lookupProduct(1));
+       // partTableView.getSelectionModel().select(Inventory.lookupPart(1));
+        //productTableView.getSelectionModel().select(Inventory.lookupProduct(1));
 
 
     }
@@ -146,8 +146,16 @@ public class MainFormController implements Initializable{
      */
     public void deleteProductsButton(ActionEvent actionEvent)
     {
+        boolean deleteProduct;
         Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
-        Inventory.deleteProduct(selectedProduct);
+        if(selectedProduct != null)
+        {
+            deleteProduct = Prompt.textBox("Delete Product","Are you sure you want to delete this product?");
+            if(deleteProduct)
+            {
+                Inventory.deleteProduct(selectedProduct);
+            }
+        }
     }
 
     /**
@@ -155,8 +163,16 @@ public class MainFormController implements Initializable{
      */
     public void deletePartsButton(ActionEvent actionEvent)
     {
+        boolean deletePart;
         Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
-        Inventory.deletePart(selectedPart);
+        if(selectedPart != null)
+        {
+            deletePart = Prompt.textBox("Delete Part","Are you sure you want to delete this part?");
+            if(deletePart)
+            {
+                Inventory.deletePart(selectedPart);
+            }
+        }
     }
 
     /**
