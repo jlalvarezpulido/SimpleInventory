@@ -25,6 +25,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         MainApplication = primaryStage;
         MainApplication.setScene(new Scene(root));
+        MainApplication.setTitle("Jose's Inventory System");
         MainApplication.show();
 
     }

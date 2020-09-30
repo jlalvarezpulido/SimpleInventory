@@ -109,17 +109,17 @@ public class ModifyProductFormController implements Initializable {
         int max = Integer.parseInt(modProdMaxText.getText());
         int min = Integer.parseInt(modProdMinText.getText());
         newProduct = new Product(id,name,price,inv,max,min);
-        Inventory.updateProduct(productIndex,newProduct);
         for(Part modPart: partListBuffer)
         {
             newProduct.addAssociatedParts(modPart);
         }
+        Inventory.updateProduct(productIndex,newProduct);
+
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(goBack);
         window.show();
-
     }
     /**
      * cancel button method used to go back to main form without passing any Objects

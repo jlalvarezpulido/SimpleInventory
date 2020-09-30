@@ -99,14 +99,19 @@ public class MainFormController implements Initializable{
         loader.load();
 
         ModifyPartFormController modifyPartController = loader.getController();
-        modifyPartController.sendPart(partTableView.getSelectionModel().getSelectedItem());
-        modifyPartController.getPartIndex(partTableView.getSelectionModel().getSelectedIndex());
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Parent modifyPartParent = loader.getRoot();
-        Scene modifyPartScene = new Scene(modifyPartParent);
-        window.setScene(modifyPartScene);
-        window.show();
 
+        Part partSent = partTableView.getSelectionModel().getSelectedItem();
+        int indexSent = partTableView.getSelectionModel().getSelectedIndex();
+        if(partSent != null)
+        {
+            modifyPartController.sendPart(partSent);
+            modifyPartController.getPartIndex(indexSent);
+            Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Parent modifyPartParent = loader.getRoot();
+            Scene modifyPartScene = new Scene(modifyPartParent);
+            window.setScene(modifyPartScene);
+            window.show();
+        }
     }
 
     /**
@@ -129,15 +134,20 @@ public class MainFormController implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/View_Controller/ModifyProductFormView.fxml"));
         loader.load();
-
         ModifyProductFormController modifyProductController = loader.getController();
-        modifyProductController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
-        modifyProductController.sendIndex(productTableView.getSelectionModel().getSelectedIndex());
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Parent modifyProductParent = loader.getRoot();
-        Scene modifyProductScene = new Scene(modifyProductParent);
-        window.setScene(modifyProductScene);
-        window.show();
+        // this is to check that the selected Product is not a null
+        Product productSent = productTableView.getSelectionModel().getSelectedItem();
+        int indexSent = productTableView.getSelectionModel().getSelectedIndex();
+        if(productSent != null)
+        {
+            modifyProductController.sendProduct(productSent);
+            modifyProductController.sendIndex(indexSent);
+            Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Parent modifyProductParent = loader.getRoot();
+            Scene modifyProductScene = new Scene(modifyProductParent);
+            window.setScene(modifyProductScene);
+            window.show();
+        }
     }
     
     /**

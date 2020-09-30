@@ -61,14 +61,11 @@ public class Inventory{
 
     public static void updatePart(int index, Part selectedPart)
     {
-        allParts.remove(index);
-        allParts.add(index,selectedPart);
+        allParts.set(index,selectedPart);
     }
     public static void updateProduct(int index, Product newProduct)
     {
-        allProducts.remove(index);
-        allProducts.add(index,newProduct);
-
+        allProducts.set(index,newProduct);
     }
 
     public static boolean deletePart(Part selectedPart)

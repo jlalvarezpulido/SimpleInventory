@@ -93,11 +93,12 @@ public class AddProductFormController implements Initializable {
         int max = Integer.parseInt(maxProductAddText.getText());
         int min = Integer.parseInt(minProductAddText.getText());
         newProduct = new Product(id,name,price,inv,max,min);
-        Inventory.addProduct(newProduct);
         for(Part addPart: partListBuffer)
         {
-        newProduct.addAssociatedParts(addPart);
+            newProduct.addAssociatedParts(addPart);
         }
+        Inventory.addProduct(newProduct);
+
 
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
