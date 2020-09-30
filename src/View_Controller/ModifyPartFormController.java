@@ -1,5 +1,7 @@
 package View_Controller;
 
+import Models.InHouse;
+import Models.Outsourced;
 import Models.Part;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,6 +44,27 @@ public class ModifyPartFormController implements Initializable {
     @FXML private TextField partMinTextModify;
 
 
+    public void sendPart(Part selectedPart) {
+        partIdTextModify.setText(String.valueOf(selectedPart.getId()));
+        partNameTextModify.setText(selectedPart.getName());
+        partInvTextModify.setText(String.valueOf(selectedPart.getStock()));
+        partPriceCostTextModify.setText(String.valueOf(selectedPart.getPrice()));
+        partMaxTextModify.setText(String.valueOf(selectedPart.getMax()));
+        partMinTextModify.setText(String.valueOf(selectedPart.getMin()));
+
+        if(selectedPart instanceof InHouse)
+        {
+            partInheritedTextModify.setText(String.valueOf(((InHouse) selectedPart).getMachineId()));
+            inHouseRadioButtonModify.setSelected(true);
+        }
+        if(selectedPart instanceof Outsourced)
+        {
+            partInheritedTextModify.setText(((Outsourced) selectedPart).getCompanyName());
+            outsourcedRadioButtonModify.setSelected(true);
+        }
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /**
@@ -53,7 +76,6 @@ public class ModifyPartFormController implements Initializable {
         inheritedGroupModify = new ToggleGroup();
         this.inHouseRadioButtonModify.setToggleGroup(inheritedGroupModify);
         this.outsourcedRadioButtonModify.setToggleGroup(inheritedGroupModify);
-        inHouseRadioButtonModify.setSelected(true);
 
     }
 

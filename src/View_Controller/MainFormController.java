@@ -93,11 +93,20 @@ public class MainFormController implements Initializable{
      *modify parts button
      */
     public void modifyPartsButton(ActionEvent actionEvent) throws IOException{
-        Parent modifyPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyPartFormView.fxml"));
-        Scene modifyPartScene = new Scene(modifyPartParent);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyPartFormView.fxml"));
+        loader.load();
+
+        ModifyPartFormController modifyPartController = loader.getController();
+        modifyPartController.sendPart(partTableView.getSelectionModel().getSelectedItem());
+
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent modifyPartParent = loader.getRoot();
+        Scene modifyPartScene = new Scene(modifyPartParent);
         window.setScene(modifyPartScene);
         window.show();
+
     }
 
     /**
