@@ -61,7 +61,7 @@ public class Inventory{
 
     public static void updatePart(int index, Part selectedPart)
     {
-
+        allParts.add(index,selectedPart);
     }
     public static void updateProduct(int index, Product newProduct)
     {

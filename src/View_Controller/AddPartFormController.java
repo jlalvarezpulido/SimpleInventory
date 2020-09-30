@@ -56,8 +56,6 @@ public class AddPartFormController implements Initializable {
         this.outsourcedRadioButtonAdd.setToggleGroup(inheritedGroupAdd);
         inHouseRadioButtonAdd.setSelected(true);
 
-
-
     }
     /**
      * Save button method used to save the data
@@ -99,9 +97,6 @@ public class AddPartFormController implements Initializable {
         window.setScene(goBack);
         window.show();
     }
-
-
-
     /**
      * Radio button selection method
      * controls the label name

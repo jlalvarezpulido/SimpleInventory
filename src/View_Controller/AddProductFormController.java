@@ -4,6 +4,7 @@ import Models.Inventory;
 import Models.Part;
 import Models.Product;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,17 +58,21 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TableColumn<Part, Double> addedPriceCol;
 
+    private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
 
     @FXML
     public void addPartToProductButton(ActionEvent event) {
         Part partSelected = defaultProductInvTB.getSelectionModel().getSelectedItem();
-
+        if(partSelected != null)
+            partListBuffer.add(partSelected);
     }
 
     @FXML
     void removeAssociationButton(ActionEvent event) {
-
+        Part partSelected = defaultProductInvTB.getSelectionModel().getSelectedItem();
+        if(partSelected != null)
+            partListBuffer.remove(partSelected);
     }
 
     @FXML
@@ -81,18 +86,16 @@ public class AddProductFormController implements Initializable {
         int min = Integer.parseInt(minProductAddText.getText());
         newProduct = new Product(id,name,price,inv,max,min);
         Inventory.addProduct(newProduct);
-
-
+        for(Part addPart: partListBuffer)
+        {
+        newProduct.addAssociatedParts(addPart);
+        }
 
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(goBack);
         window.show();
-
-
-
-
 
     }
 
@@ -111,6 +114,7 @@ public class AddProductFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defaultProductInvTB.setItems(Inventory.getAllParts());
+        addedProductTB.setItems(partListBuffer);
         //initialize columns parts view
         partIdProductCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         partNameProductCol.setCellValueFactory(new PropertyValueFactory<>("name"));

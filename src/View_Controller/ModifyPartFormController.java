@@ -1,6 +1,7 @@
 package View_Controller;
 
 import Models.InHouse;
+import Models.Inventory;
 import Models.Outsourced;
 import Models.Part;
 import javafx.event.ActionEvent;
@@ -43,8 +44,12 @@ public class ModifyPartFormController implements Initializable {
     @FXML private TextField partInheritedTextModify;
     @FXML private TextField partMinTextModify;
 
+    public int partIndex;
+    public Part part;
 
     public void sendPart(Part selectedPart) {
+        partIndex = (selectedPart.getId()) - 1;
+        part = selectedPart;
         partIdTextModify.setText(String.valueOf(selectedPart.getId()));
         partNameTextModify.setText(selectedPart.getName());
         partInvTextModify.setText(String.valueOf(selectedPart.getStock()));
@@ -93,8 +98,9 @@ public class ModifyPartFormController implements Initializable {
     /**
      * Save button method used to save the data
      */
-    public void modifyPartSaveButtonPushed(){
-
+    public void modifyPartSaveButtonPushed()
+    {
+        //Inventory.updatePart(partIndex, part);
     }
 
 
