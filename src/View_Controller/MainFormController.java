@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 public class MainFormController implements Initializable{
 
-    Inventory test = new Inventory();
     /**
      *Declarations for text fields
      * search
@@ -48,11 +47,8 @@ public class MainFormController implements Initializable{
     @FXML private TableColumn<Product, Integer> productTableInvCol;
     @FXML private TableColumn<Product, Double> productTablePriceCol;
 
-    private ObservableList<Part> partsInv;
-    private ObservableList<Product> productsInv;
     private ObservableList<Part> partsInvSearch;
     private ObservableList<Product> productsInvSearch;
-
 
     /**
      * Initializes the Main form class
@@ -73,9 +69,12 @@ public class MainFormController implements Initializable{
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        //select get selection to highlight search
+        partTableView.getSelectionModel().select(Inventory.lookupPart(1));
+        productTableView.getSelectionModel().select(Inventory.lookupProduct(1));
+
 
     }
-
 
 
     /**

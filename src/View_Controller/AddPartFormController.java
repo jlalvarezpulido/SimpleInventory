@@ -45,10 +45,10 @@ public class AddPartFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         * radio button initialized
-         * set the default radio button
-         * and link the toggle group
+        /*
+          radio button initialized
+          set the default radio button
+          and link the toggle group
          */
         inheritedLabelAdd.setText("Machine ID");
         inheritedGroupAdd = new ToggleGroup();

@@ -55,6 +55,10 @@ public class Inventory{
 
     public static ObservableList<Part> lookupPart(String partName){return null;}
     public static ObservableList<Product> lookupProduct(String productName){return null;}
+
+
+
+
     public static void updatePart(int index, Part selectedPart)
     {
 
