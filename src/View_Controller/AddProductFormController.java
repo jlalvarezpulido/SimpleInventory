@@ -1,6 +1,9 @@
 package View_Controller;
 
+import Models.Inventory;
 import Models.Part;
+import Models.Product;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,8 +57,11 @@ public class AddProductFormController implements Initializable {
     @FXML
     private TableColumn<Part, Double> addedPriceCol;
 
+    public Product newProduct;
+
     @FXML
-    void addPartToProductButton(ActionEvent event) {
+    public void addPartToProductButton(ActionEvent event) {
+        Part partSelected = defaultProductInvTB.getSelectionModel().getSelectedItem();
 
     }
 
@@ -64,9 +71,31 @@ public class AddProductFormController implements Initializable {
     }
 
     @FXML
-    void saveProductButton(ActionEvent event) {
+    public void saveProductButton(ActionEvent event) throws IOException {
+
+        int id = Integer.parseInt(productIdAddText.getText());
+        String name = nameProductAddText.getText();
+        double price = Double.parseDouble(priceProductAddText.getText());
+        int inv = Integer.parseInt(invProductAddText.getText());
+        int max = Integer.parseInt(maxProductAddText.getText());
+        int min = Integer.parseInt(minProductAddText.getText());
+        newProduct = new Product(id,name,price,inv,max,min);
+        Inventory.addProduct(newProduct);
+
+
+
+        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+        Scene goBack = new Scene(goBackParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(goBack);
+        window.show();
+
+
+
+
 
     }
+
     /**
      * cancel button method used to go back to main form without passing any Objects
      */
@@ -81,6 +110,19 @@ public class AddProductFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        defaultProductInvTB.setItems(Inventory.getAllParts());
+        //initialize columns parts view
+        partIdProductCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        partNameProductCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        InvProductCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        priceProductCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        //initialize columns associated parts view
+        addedIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        addedPartCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        addedInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        addedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+
 
     }
 

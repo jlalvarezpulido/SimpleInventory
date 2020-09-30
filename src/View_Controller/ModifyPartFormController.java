@@ -40,7 +40,6 @@ public class ModifyPartFormController implements Initializable {
     @FXML private TextField partMaxTextModify;
     @FXML private TextField partInheritedTextModify;
     @FXML private TextField partMinTextModify;
-    private Part part;
 
 
     @Override
