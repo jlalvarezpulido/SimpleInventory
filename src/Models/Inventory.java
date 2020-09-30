@@ -23,13 +23,15 @@ public class Inventory{
            allProducts.add(newProduct);
     }
 
-    public static Part lookupPart(int partId) {
+    public static Part lookupPart(int partId)
+    {
         /**
          ** linear Search for id in the list
          *      * @param id is the part id
          *      * @return part if object is found
          */
-        for (Part part : Inventory.getAllParts()) {
+        for (Part part : Inventory.getAllParts())
+        {
             if (part.getId() == partId)
                 return part;
         }
@@ -43,7 +45,8 @@ public class Inventory{
      */
     public static Product lookupProduct(int productId)
     {
-        for (Product product : Inventory.getAllProducts()) {
+        for (Product product : Inventory.getAllProducts())
+        {
             if (product.getId() == productId)
                 return product;
         }
@@ -56,9 +59,35 @@ public class Inventory{
     {
 
     }
-    public static void updateProduct(int index, Product newProduct){}
-    public static boolean deletePart(Part selectedPart){return true;}
-    public static boolean deleteProduct(Product selectedProduct){return true;}
+    public static void updateProduct(int index, Product newProduct)
+    {
+
+    }
+
+    public static boolean deletePart(Part selectedPart)
+    {
+        for(Part part : Inventory.getAllParts())
+        {
+            if(part.getId() == selectedPart.getId())
+            {
+                Inventory.getAllParts().remove(selectedPart);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static boolean deleteProduct(Product selectedProduct)
+    {
+      for(Product product : Inventory.getAllProducts())
+      {
+          if(product.getId() == selectedProduct.getId())
+          {
+              Inventory.getAllProducts().remove(selectedProduct);
+              return true;
+          }
+      }
+      return false;
+    }
 
     public static ObservableList<Part> getAllParts(){ return allParts; }
     public static ObservableList<Product> getAllProducts(){return allProducts;}

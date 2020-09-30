@@ -127,13 +127,19 @@ public class MainFormController implements Initializable{
      * Main Forum buttons used to delete Objects
      * delete products button
      */
-    public void deleteProductsButton(ActionEvent actionEvent) {
+    public void deleteProductsButton(ActionEvent actionEvent)
+    {
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+        Inventory.deleteProduct(selectedProduct);
     }
 
     /**
      * delete parts button
      */
-    public void deletePartsButton(ActionEvent actionEvent) {
+    public void deletePartsButton(ActionEvent actionEvent)
+    {
+        Part selectedPart = partTableView.getSelectionModel().getSelectedItem();
+        Inventory.deletePart(selectedPart);
     }
 
     /**
