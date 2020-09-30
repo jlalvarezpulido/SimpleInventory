@@ -101,7 +101,6 @@ public class MainFormController implements Initializable{
         ModifyPartFormController modifyPartController = loader.getController();
         modifyPartController.sendPart(partTableView.getSelectionModel().getSelectedItem());
         modifyPartController.getPartIndex(partTableView.getSelectionModel().getSelectedIndex());
-
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Parent modifyPartParent = loader.getRoot();
         Scene modifyPartScene = new Scene(modifyPartParent);
@@ -123,11 +122,20 @@ public class MainFormController implements Initializable{
 
     /**
      *modify products button
+     * defined the fxml loader to load the modifyProduct controller to hand off information between controllers.
      */
     public void modifyProductsButton(ActionEvent actionEvent) throws IOException{
-        Parent modifyProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProductFormView.fxml"));
-        Scene modifyProductScene = new Scene(modifyProductParent);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyProductFormView.fxml"));
+        loader.load();
+
+        ModifyProductFormController modifyProductController = loader.getController();
+        modifyProductController.sendProduct(productTableView.getSelectionModel().getSelectedItem());
+        modifyProductController.sendIndex(productTableView.getSelectionModel().getSelectedIndex());
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent modifyProductParent = loader.getRoot();
+        Scene modifyProductScene = new Scene(modifyProductParent);
         window.setScene(modifyProductScene);
         window.show();
     }

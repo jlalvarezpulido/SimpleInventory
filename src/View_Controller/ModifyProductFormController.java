@@ -1,6 +1,10 @@
 package View_Controller;
 
+import Models.Inventory;
 import Models.Part;
+import Models.Product;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -69,18 +74,43 @@ public class ModifyProductFormController implements Initializable {
     @FXML
     private TableColumn<Part, Double> modBotPriceCol;
 
+    private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
+    public Product newProduct;
+    public int productIndex;
+
     @FXML
     void addModButton(ActionEvent event) {
-
+        Part partSelected = modTopTV.getSelectionModel().getSelectedItem();
+        if(partSelected != null)
+            partListBuffer.add(partSelected);
     }
 
     @FXML
     void modRemoveAssociationButton(ActionEvent event) {
-
+        Part partSelected = modBottomTV.getSelectionModel().getSelectedItem();
+        if(partSelected != null)
+            partListBuffer.remove(partSelected);
     }
 
     @FXML
-    void modSaveButton(ActionEvent event) {
+    void modSaveButton(ActionEvent event) throws IOException{
+        int id = Integer.parseInt(modProdIdText.getText());
+        String name = modProdNameText.getText();
+        int inv = Integer.parseInt(modProductInvText.getText());
+        double price = Double.parseDouble(modProdPriceText.getText());
+        int max = Integer.parseInt(modProdMaxText.getText());
+        int min = Integer.parseInt(modProdMinText.getText());
+        newProduct = new Product(id,name,price,inv,max,min);
+        Inventory.updateProduct(productIndex,newProduct);
+        for(Part modPart: partListBuffer)
+        {
+            newProduct.addAssociatedParts(modPart);
+        }
+        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+        Scene goBack = new Scene(goBackParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(goBack);
+        window.show();
 
     }
     /**
@@ -96,8 +126,39 @@ public class ModifyProductFormController implements Initializable {
     }
 
 
+    public void sendProduct(Product selectedProduct){
+        modProdIdText.setText(String.valueOf(selectedProduct.getId()));
+        modProdNameText.setText(selectedProduct.getName());
+        modProdPriceText.setText(String.valueOf(selectedProduct.getPrice()));
+        modProductInvText.setText(String.valueOf(selectedProduct.getStock()));
+        modProdMinText.setText(String.valueOf(selectedProduct.getMin()));
+        modProdMaxText.setText(String.valueOf(selectedProduct.getMax()));
+        for(Part part: selectedProduct.getAllAssociatedParts())
+        {
+            partListBuffer.add(part);
+        }
+
+    }
+    public void sendIndex(int index){
+        productIndex = index;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        modTopTV.setItems(Inventory.getAllParts());
+        modBottomTV.setItems(partListBuffer);
+        //initialize columns in modTopTV table View
+        modTopIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modTopNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modTopInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modTopPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        //initialize columns in modBottomTV table view
+        modBotIdCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        modBotNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        modBotInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        modBotPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
 
     }
 }
