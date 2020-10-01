@@ -62,32 +62,32 @@ public class AddProductFormController implements Initializable {
     private TableColumn<Part, Integer> addedInvCol;
     @FXML
     private TableColumn<Part, Double> addedPriceCol;
-
+    /** part list buffer is a buffer list for the associated parts. */
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
     static int count = Inventory.getAllProducts().size() + 1;
-
-    @FXML
+    /** adds parts to the bufferList. */
+    @FXML//adds products with a not null exceptions
     public void addPartToProductButton(ActionEvent event) {
         Part partSelected = defaultProductInvTB.getSelectionModel().getSelectedItem();
         if(partSelected != null)
             partListBuffer.add(partSelected);
     }
-
-    @FXML
+    /** Removes parts from buffer List. */
+    @FXML//removes associated parts
     void removeAssociationButton(ActionEvent event) {
         boolean deletePart;
         Part partSelected = addedProductTB.getSelectionModel().getSelectedItem();
         if(partSelected != null)
         {
             deletePart = Prompt.textBox("Removing Association","Are You sure you want to remove this association?");
-            if(deletePart)
+            if(deletePart)//if prompt is clicked Ok, part is removed from the buffer.
             {
                 partListBuffer.remove(partSelected);
             }
         }
     }
-
+    /** Save Product button used to save products into Inventory. the values are parsed from the text fields.*/
     @FXML
     public void saveProductButton(ActionEvent event) throws IOException {
         try
@@ -143,6 +143,7 @@ public class AddProductFormController implements Initializable {
     }
 
 
+    /** method used to initialize table columns and table views. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defaultProductInvTB.setItems(Inventory.getAllParts());
@@ -160,6 +161,7 @@ public class AddProductFormController implements Initializable {
 
         errorLabel.setText("");
     }
+    /** searchHandler used to search for parts in the upper table view. */
     public void searchHandler(ActionEvent event)
     {
         String search = searchAddProductText.getText();
@@ -184,9 +186,11 @@ public class AddProductFormController implements Initializable {
         }
         defaultProductInvTB.setItems(searchPart);
     }
+    /** adds to the count when it is called. Only executes if the save button executes without exceptions. */
     public void genId(){
        ++count;
     }
+    /** calculates the total price in the part buffer. */
     public double partsTotalPrice()
     {
         double partsTotalPrice = 0;

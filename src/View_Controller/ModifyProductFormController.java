@@ -23,7 +23,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** This class is the controller for the modify product view.
+ * @author Jose Alvarez Pulido */
 public class ModifyProductFormController implements Initializable {
 
     @FXML
@@ -78,11 +79,11 @@ public class ModifyProductFormController implements Initializable {
 
     @FXML
     private TableColumn<Part, Double> modBotPriceCol;
-
+    /** partListBuffer is a temporary list buffer for the products that will be added. */
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
     public int productIndex;
-
+    /** This method adds parts the partListBuffer. the buffer is added to associated parts when save button is pressed. */
     @FXML
     void addModButton(ActionEvent event)
     {
@@ -90,7 +91,7 @@ public class ModifyProductFormController implements Initializable {
         if(partSelected != null)
             partListBuffer.add(partSelected);
     }
-
+    /** This method removes parts from the partListBuffer.*/
     @FXML
     void modRemoveAssociationButton(ActionEvent event) {
         boolean deletePart;
@@ -104,7 +105,9 @@ public class ModifyProductFormController implements Initializable {
             }
         }
     }
-
+    /** This method is for the save button.
+     * try catch exception handling
+     * if statements to handle logical errors.*/
     @FXML
     void modSaveButton(ActionEvent event) throws IOException
     {
@@ -155,8 +158,7 @@ public class ModifyProductFormController implements Initializable {
         window.setScene(goBack);
         window.show();
     }
-
-
+    /** This method is used to send products from main form table view.*/
     public void sendProduct(Product selectedProduct)
     {
         modProdIdText.setText(String.valueOf(selectedProduct.getId()));
@@ -171,10 +173,11 @@ public class ModifyProductFormController implements Initializable {
         }
 
     }
+    /** This method passes the index of the product sent*/
     public void sendIndex(int index){
         productIndex = index;
     }
-
+    /** method used to initialize table columns and table views. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -196,6 +199,7 @@ public class ModifyProductFormController implements Initializable {
 
 
     }
+    /** searchHandler used to search for parts in the upper table view. */
     public void searchHandler(ActionEvent event) {
         String search = modProdSearch.getText();
         ObservableList<Part> searchPart = Inventory.lookupPart(search);
@@ -214,6 +218,7 @@ public class ModifyProductFormController implements Initializable {
         }
         modTopTV.setItems(searchPart);
     }
+    /** calculates the total price in the part buffer. */
     public double partsTotalPrice()
     {
         double partsTotalPrice = 0;

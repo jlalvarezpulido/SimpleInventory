@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * Controller for the add part form. implements initialize.
  * @author Jose Alvarez Pulido
  */
 public class AddPartFormController implements Initializable {
@@ -36,7 +37,6 @@ public class AddPartFormController implements Initializable {
     /**
      * Declarations for text Fields
      */
-    //text fields
     public TextField partIdTextAdd;
     public TextField partInvTextAdd;
     public TextField partPriceCostTextAdd;
@@ -50,9 +50,7 @@ public class AddPartFormController implements Initializable {
      * then adds 1 each time the genID method is used
      */
     static int count = Inventory.getAllParts().size() + 1;
-
-
-
+    /** Initializes radio buttons and labels*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -70,15 +68,15 @@ public class AddPartFormController implements Initializable {
 
     }
     /**
-     * Save button method used to save the data
-     * create a part using wrapper methods to get the text and form it
-     * distinguish whether the part is inHouse or Outsourced with the if statements
-     * and create the part and add it to Inventory
+     * Save button method used to save the data.
+     * create a part using wrapper methods to get the text and form it.
+     * distinguish whether the part is inHouse or Outsourced with the if statements.
+     * and create the part and add it to Inventory.
      */
     @FXML
     public void addPartSaveButtonPushed(ActionEvent event) throws IOException
     {
-
+        //exception handling.
         try
         {
             // genID method is used everytime the button is successful
@@ -142,7 +140,7 @@ public class AddPartFormController implements Initializable {
     }
 
     /**
-     *
+     * Generates an ID and its adds it count. count is static.
      */
      public void genId()
      {

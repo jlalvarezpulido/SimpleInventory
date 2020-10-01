@@ -47,7 +47,7 @@ public class ModifyPartFormController implements Initializable
     @FXML private TextField partMinTextModify;
 
     public int partIndex;
-
+/** Sends part from the main form to the modify part form. */
     public void sendPart(Part selectedPart)
     {
         partIdTextModify.setText(String.valueOf(selectedPart.getId()));
@@ -70,10 +70,11 @@ public class ModifyPartFormController implements Initializable
         }
 
     }
+    /** Gets the part Index from the sent items in the main form. */
     public void getPartIndex(int index){
         partIndex = index;
     }
-
+    /** method used to initialize radio buttons. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {

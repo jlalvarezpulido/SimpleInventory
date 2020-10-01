@@ -4,7 +4,6 @@ import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +23,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/** This is the controller for the main form.
+ * @author Jose Alvarez Pulido*/
 public class MainFormController implements Initializable{
 
     @FXML
@@ -260,10 +260,8 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     *
      * button to exit the application
      */
-
     public void exitApplicationButtonPushed(ActionEvent actionEvent) {
         boolean exitConfirm;//using the Prompt class to return a bool to prompt a second window to exit
         exitConfirm = Prompt.textBox("Exit Screen","Are you sure you want to exit?");
