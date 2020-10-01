@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
  */
 public class AddPartFormController implements Initializable {
 
+    @FXML private Label errorLabel;
     /**
      * Declarations for the radio buttons and toggle group
      */
@@ -48,7 +49,7 @@ public class AddPartFormController implements Initializable {
      * starts at the count of the size of all parts
      * then adds 1 each time the genID method is used
      */
-    static int count = Inventory.getAllParts().size();
+    static int count = Inventory.getAllParts().size() + 1;
 
 
 
@@ -65,6 +66,7 @@ public class AddPartFormController implements Initializable {
         this.inHouseRadioButtonAdd.setToggleGroup(inheritedGroupAdd);
         this.outsourcedRadioButtonAdd.setToggleGroup(inheritedGroupAdd);
         inHouseRadioButtonAdd.setSelected(true);
+        errorLabel.setText("");
 
     }
     /**
@@ -76,27 +78,44 @@ public class AddPartFormController implements Initializable {
     @FXML
     public void addPartSaveButtonPushed(ActionEvent event) throws IOException
     {
-        // genID method is used everytime the button is pushed
-        int id = genId();
-        String name = partNameTextAdd.getText();
-        double price = Double.parseDouble(partPriceCostTextAdd.getText());
-        int inv = Integer.parseInt(partInvTextAdd.getText());
-        int min = Integer.parseInt(partMinTextAdd.getText());
-        int max = Integer.parseInt(partMaxTextAdd.getText());
-        if(inHouseRadioButtonAdd.isSelected()){
-            int machineId = Integer.parseInt(partInheritedTextAdd.getText());
-            Inventory.addPart(new InHouse(id, name, price,inv, min, max, machineId)); //create in house part
+
+        try
+        {
+            // genID method is used everytime the button is successful
+            //count is static value
+            int id = count;
+            String name = partNameTextAdd.getText();
+            double price = Double.parseDouble(partPriceCostTextAdd.getText());
+            int inv = Integer.parseInt(partInvTextAdd.getText());
+            int min = Integer.parseInt(partMinTextAdd.getText());
+            int max = Integer.parseInt(partMaxTextAdd.getText());
+            if(inv > max){errorLabel.setText("inventory cannot be greater than the maximum\n");}
+            else if(min > max){errorLabel.setText("inventory maximum cannot be less than the minimum\n");}
+            else if(min > inv){errorLabel.setText("inventory cannot be less than the minimum\n");}
+            else {
+                if (inHouseRadioButtonAdd.isSelected())
+                {
+                    int machineId = Integer.parseInt(partInheritedTextAdd.getText());
+                    Inventory.addPart(new InHouse(id, name, price, inv, min, max, machineId)); //create in house part
+                }
+                if (outsourcedRadioButtonAdd.isSelected())
+                {
+                    String companyName = partInheritedTextAdd.getText();
+                    Inventory.addPart(new Outsourced(id, name, price, inv, min, max, companyName)); //create outsourced part
+                }
+                //Return to the main menu screen after saving
+                Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+                Scene goBack = new Scene(goBackParent);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(goBack);
+                window.show();
+                genId(); // only counts up after successfully added product
+            }
         }
-        if(outsourcedRadioButtonAdd.isSelected()){
-            String companyName = partInheritedTextAdd.getText();
-            Inventory.addPart(new Outsourced(id, name, price, inv, min, max, companyName)); //create outsourced part
+        catch (NumberFormatException e)
+        {
+            errorLabel.setText(e.getLocalizedMessage());
         }
-        //Return to the main menu screen after saving
-        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
-        Scene goBack = new Scene(goBackParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(goBack);
-        window.show();
     }
 
     /**
@@ -124,10 +143,9 @@ public class AddPartFormController implements Initializable {
 
     /**
      *
-     * @return count with a new tally
      */
-     public int genId()
+     public void genId()
      {
-     return ++count;
+         ++count;
      }
 }

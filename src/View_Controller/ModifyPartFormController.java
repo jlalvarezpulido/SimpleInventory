@@ -55,16 +55,17 @@ public class ModifyPartFormController implements Initializable
         partPriceCostTextModify.setText(String.valueOf(selectedPart.getPrice()));
         partMaxTextModify.setText(String.valueOf(selectedPart.getMax()));
         partMinTextModify.setText(String.valueOf(selectedPart.getMin()));
-
         if(selectedPart instanceof InHouse)
         {
             partInheritedTextModify.setText(String.valueOf(((InHouse) selectedPart).getMachineId()));
             inHouseRadioButtonModify.setSelected(true);
+            inheritedLabelModify.setText("Machine ID");
         }
         if(selectedPart instanceof Outsourced)
         {
             partInheritedTextModify.setText(((Outsourced) selectedPart).getCompanyName());
             outsourcedRadioButtonModify.setSelected(true);
+            inheritedLabelModify.setText("Company Name");
         }
 
     }
@@ -80,7 +81,6 @@ public class ModifyPartFormController implements Initializable
           set the default radio button
           and link the toggle group
          */
-        inheritedLabelModify.setText("Machine ID");
         inheritedGroupModify = new ToggleGroup();
         this.inHouseRadioButtonModify.setToggleGroup(inheritedGroupModify);
         this.outsourcedRadioButtonModify.setToggleGroup(inheritedGroupModify);
