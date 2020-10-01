@@ -44,7 +44,8 @@ public class AddPartFormController implements Initializable {
 
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
         /*
           radio button initialized
           set the default radio button
@@ -64,7 +65,8 @@ public class AddPartFormController implements Initializable {
      * and create the part and add it to Inventory
      */
     @FXML
-    public void addPartSaveButtonPushed(ActionEvent event) throws IOException{
+    public void addPartSaveButtonPushed(ActionEvent event) throws IOException
+    {
         /*
         auto generate IDs
          */

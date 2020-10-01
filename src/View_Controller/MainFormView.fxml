@@ -110,7 +110,7 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="partLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Part ID or Name" />
+                              <TextField fx:id="partLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#resultPartHandler" prefHeight="30.0" prefWidth="250.0" promptText="Search by Part ID or Name" />
                            </children>
                         </StackPane>
                      </children>
@@ -189,7 +189,7 @@
                      <children>
                         <StackPane prefHeight="150.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="productLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="250.0" promptText="Search by Product ID or Name" />
+                              <TextField fx:id="productLookUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#resultProductHandler" prefHeight="30.0" prefWidth="250.0" promptText="Search by Product ID or Name" />
                            </children>
                         </StackPane>
                      </children>

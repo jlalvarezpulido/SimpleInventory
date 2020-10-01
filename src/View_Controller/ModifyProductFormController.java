@@ -80,7 +80,8 @@ public class ModifyProductFormController implements Initializable {
     public int productIndex;
 
     @FXML
-    void addModButton(ActionEvent event) {
+    void addModButton(ActionEvent event)
+    {
         Part partSelected = modTopTV.getSelectionModel().getSelectedItem();
         if(partSelected != null)
             partListBuffer.add(partSelected);
@@ -101,7 +102,8 @@ public class ModifyProductFormController implements Initializable {
     }
 
     @FXML
-    void modSaveButton(ActionEvent event) throws IOException{
+    void modSaveButton(ActionEvent event) throws IOException
+    {
         int id = Integer.parseInt(modProdIdText.getText());
         String name = modProdNameText.getText();
         int inv = Integer.parseInt(modProductInvText.getText());
@@ -125,7 +127,8 @@ public class ModifyProductFormController implements Initializable {
      * cancel button method used to go back to main form without passing any Objects
      */
     @FXML
-    public void cancelButtonPushed(ActionEvent actionEvent) throws IOException {
+    public void cancelButtonPushed(ActionEvent actionEvent) throws IOException
+    {
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
         Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -134,7 +137,8 @@ public class ModifyProductFormController implements Initializable {
     }
 
 
-    public void sendProduct(Product selectedProduct){
+    public void sendProduct(Product selectedProduct)
+    {
         modProdIdText.setText(String.valueOf(selectedProduct.getId()));
         modProdNameText.setText(selectedProduct.getName());
         modProdPriceText.setText(String.valueOf(selectedProduct.getPrice()));
@@ -152,7 +156,8 @@ public class ModifyProductFormController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
 
         modTopTV.setItems(Inventory.getAllParts());
         modBottomTV.setItems(partListBuffer);

@@ -24,7 +24,8 @@ import java.util.ResourceBundle;
 /**
  * @author Jose Alvarez Pulido
  */
-public class ModifyPartFormController implements Initializable {
+public class ModifyPartFormController implements Initializable
+{
     /**
      *Declarations for the radio buttons and toggle group
      */
@@ -46,7 +47,8 @@ public class ModifyPartFormController implements Initializable {
 
     public int partIndex;
 
-    public void sendPart(Part selectedPart) {
+    public void sendPart(Part selectedPart)
+    {
         partIdTextModify.setText(String.valueOf(selectedPart.getId()));
         partNameTextModify.setText(selectedPart.getName());
         partInvTextModify.setText(String.valueOf(selectedPart.getStock()));
@@ -71,7 +73,8 @@ public class ModifyPartFormController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
         /*
           radio button initialized
           set the default radio button
@@ -87,7 +90,8 @@ public class ModifyPartFormController implements Initializable {
     /**
      * cancel button method used to go back to main form without passing any Objects
      */
-    public void cancelButtonPushed(ActionEvent actionEvent) throws IOException {
+    public void cancelButtonPushed(ActionEvent actionEvent) throws IOException
+    {
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
         //This line gets the stage information
@@ -129,11 +133,14 @@ public class ModifyPartFormController implements Initializable {
      * Radio button selection method
      * controls the label name
      */
-    public void changeRadioButtonModify(){
-        if(this.inheritedGroupModify.getSelectedToggle().equals(this.inHouseRadioButtonModify)){
+    public void changeRadioButtonModify()
+    {
+        if(this.inheritedGroupModify.getSelectedToggle().equals(this.inHouseRadioButtonModify))
+        {
             inheritedLabelModify.setText("Machine ID");
         }
-        if(this.inheritedGroupModify.getSelectedToggle().equals(this.outsourcedRadioButtonModify)){
+        if(this.inheritedGroupModify.getSelectedToggle().equals(this.outsourcedRadioButtonModify))
+        {
             inheritedLabelModify.setText("Company Name");
         }
     }

@@ -4,6 +4,7 @@ import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,8 +74,63 @@ public class MainFormController implements Initializable{
        // partTableView.getSelectionModel().select(Inventory.lookupPart(1));
         //productTableView.getSelectionModel().select(Inventory.lookupProduct(1));
 
-
     }
+
+    /**
+     * resultPartHandler sets the tableview for only searched parts
+     */
+    public void resultPartHandler(ActionEvent event)
+    {
+        String search = partLookUp.getText();
+        ObservableList<Part> parts = Inventory.lookupPart(search);
+        if(parts.size() == 0)
+        {
+            try
+            {
+                int id = Integer.parseInt(search);
+                Part part = Inventory.lookupPart(id);
+                if(part != null)
+                {
+                    parts.add(part);
+                }
+
+                partTableView.getSelectionModel().select(Inventory.lookupPart(id));
+            }
+            catch (NumberFormatException ignore)
+            {
+
+            }
+        }
+        partTableView.setItems(parts);
+    }
+    /**
+     *
+     * resultProductHandler sets the tableview for only searched parts
+     */
+    public void resultProductHandler(ActionEvent event)
+    {
+        String search = productLookUp.getText();
+        ObservableList<Product> products = Inventory.lookupProduct(search);
+        if(products.size() == 0)
+        {
+            try
+            {
+                int id = Integer.parseInt(search);
+                Product product = Inventory.lookupProduct(id);
+                if(product!= null)
+                {
+                    products.add(product);
+                }
+                productTableView.getSelectionModel().select(Inventory.lookupProduct(id));
+            }
+            catch (NumberFormatException ignore)
+            {
+
+            }
+        }
+        productTableView.setItems(products);
+    }
+
 
 
     /**

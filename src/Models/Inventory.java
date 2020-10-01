@@ -1,6 +1,7 @@
 package Models;
 
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,18 +23,21 @@ public class Inventory{
        if(newProduct != null)
            allProducts.add(newProduct);
     }
-
+    /**
+     ** linear Search for id in the list
+     *      * @param id is the part id
+     *      * @return part if object is found
+     */
     public static Part lookupPart(int partId)
     {
-        /**
-         ** linear Search for id in the list
-         *      * @param id is the part id
-         *      * @return part if object is found
-         */
-        for (Part part : Inventory.getAllParts())
+        ObservableList<Part> allParts = getAllParts();
+        for(int i = 0; i < allParts.size(); i++)
         {
-            if (part.getId() == partId)
+            Part part = allParts.get(i);
+            if(part.getId() == partId)
+            {
                 return part;
+            }
         }
         return null;
     }
@@ -45,16 +49,42 @@ public class Inventory{
      */
     public static Product lookupProduct(int productId)
     {
-        for (Product product : Inventory.getAllProducts())
+        ObservableList<Product> allProducts = getAllProducts();
+        for (int i = 0; i < allProducts.size(); i++)
         {
-            if (product.getId() == productId)
+            Product product = allProducts.get(i);
+            if(product.getId() == productId)
+            {
                 return product;
+            }
         }
         return null;
     }
 
-    public static ObservableList<Part> lookupPart(String partName){return null;}
-    public static ObservableList<Product> lookupProduct(String productName){return null;}
+    public static ObservableList<Part> lookupPart(String partName)
+    {
+        ObservableList<Part> namedParts = FXCollections.observableArrayList();
+        for(Part part : getAllParts())
+        {
+            if(part.getName().contains(partName))
+            {
+                namedParts.add(part);
+            }
+        }
+        return namedParts;
+    }
+    public static ObservableList<Product> lookupProduct(String productName)
+    {
+        ObservableList<Product> namedProduct = FXCollections.observableArrayList();
+        for(Product product : Inventory.getAllProducts())
+        {
+            if(product.getName().contains(productName))
+            {
+                namedProduct.add(product);
+            }
+        }
+        return namedProduct;
+    }
 
 
 
