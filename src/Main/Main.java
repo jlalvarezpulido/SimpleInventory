@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
+ * Initiates the Application, sets Stage.
  * @author Jose Alvarez Pulido
- *
  */
 public class Main extends Application {
 

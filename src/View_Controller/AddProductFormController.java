@@ -23,7 +23,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** Class for the Add Product view.
+ * @author Jose Alvarez Pulido */
 public class AddProductFormController implements Initializable {
 
     @FXML

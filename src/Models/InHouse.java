@@ -1,5 +1,6 @@
 package Models;
-/** Ths is the InHouse class it extends the Part class. @author Jose Alvarez*/
+/** Ths is the InHouse class it extends the Part class.
+ * @author Jose Alvarez Pulido*/
 public class InHouse extends Part{
     private int machineId;
 /** InHouse Constructor. uses the super method to extend Part. Has its own value machineId */

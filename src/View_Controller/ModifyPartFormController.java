@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ *  controller class for the modify part view.
  * @author Jose Alvarez Pulido
  */
 public class ModifyPartFormController implements Initializable

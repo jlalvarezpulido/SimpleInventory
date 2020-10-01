@@ -1,9 +1,6 @@
-/**
- * Supplied class Part.java
- */
 package Models;
 /**
- *
+ * Supplied class Part.java
  * @author Jose Alvarez Pulido
  */
 public abstract class Part {
