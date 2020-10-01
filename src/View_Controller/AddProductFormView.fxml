@@ -241,7 +241,7 @@
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="searchAddProductText" prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
+                        <TextField fx:id="searchAddProductText" onAction="#searchHandler" prefHeight="27.0" prefWidth="218.0" promptText="Search by Part ID or Name" />
                      </children>
                   </StackPane>
                </children>

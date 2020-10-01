@@ -174,4 +174,28 @@ public class ModifyProductFormController implements Initializable {
 
 
     }
+    public void searchHandler(ActionEvent event)
+    {
+        String search = modProdSearch.getText();
+        ObservableList<Part> searchPart = Inventory.lookupPart(search);
+        if(searchPart.size() == 0)
+        {
+            try
+            {
+                int id = Integer.parseInt(search);
+                Part part = Inventory.lookupPart(id);
+                if(part != null)
+                {
+                    searchPart.add(part);
+                }
+                modTopTV.getSelectionModel().select(Inventory.lookupPart(id));
+
+            }
+            catch (NumberFormatException ignore)
+            {
+
+            }
+        }
+        modTopTV.setItems(searchPart);
+    }
 }

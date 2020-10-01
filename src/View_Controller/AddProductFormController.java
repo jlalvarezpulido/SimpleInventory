@@ -4,6 +4,7 @@ import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -122,6 +123,7 @@ public class AddProductFormController implements Initializable {
         window.show();
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defaultProductInvTB.setItems(Inventory.getAllParts());
@@ -140,5 +142,28 @@ public class AddProductFormController implements Initializable {
 
 
     }
+    public void searchHandler(ActionEvent event)
+    {
+        String search = searchAddProductText.getText();
+        ObservableList<Part> searchPart = Inventory.lookupPart(search);
+        if(searchPart.size() == 0)
+        {
+            try
+            {
+                int id = Integer.parseInt(search);
+                Part part = Inventory.lookupPart(id);
+                if(part != null)
+                {
+                    searchPart.add(part);
+                }
+                defaultProductInvTB.getSelectionModel().select(Inventory.lookupPart(id));
 
+            }
+            catch (NumberFormatException ignore)
+            {
+
+            }
+        }
+        defaultProductInvTB.setItems(searchPart);
+    }
 }
