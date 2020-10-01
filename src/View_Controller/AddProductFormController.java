@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddProductFormController implements Initializable {
+
     @FXML
     private TextField productIdAddText;
     @FXML
@@ -90,18 +92,23 @@ public class AddProductFormController implements Initializable {
           auto generate IDs
          */
         int id = genId();
+
         String name = nameProductAddText.getText();
+
         double price = Double.parseDouble(priceProductAddText.getText());
+
         int inv = Integer.parseInt(invProductAddText.getText());
+
         int max = Integer.parseInt(maxProductAddText.getText());
+
         int min = Integer.parseInt(minProductAddText.getText());
+
         newProduct = new Product(id,name,price,inv,max,min);
         for(Part addPart: partListBuffer)
         {
             newProduct.addAssociatedParts(addPart);
         }
         Inventory.addProduct(newProduct);
-
 
         Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         Scene goBack = new Scene(goBackParent);
@@ -138,6 +145,7 @@ public class AddProductFormController implements Initializable {
         addedPartCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         addedInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+
 
 
 

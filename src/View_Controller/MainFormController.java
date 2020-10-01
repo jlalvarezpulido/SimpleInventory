@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +27,8 @@ import java.util.ResourceBundle;
 
 public class MainFormController implements Initializable{
 
+    @FXML
+    private Label errorLabel;
     /**
      *Declarations for text fields
      * search
@@ -69,6 +72,7 @@ public class MainFormController implements Initializable{
         productTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        errorLabel.setText("");
 
     }
 
@@ -159,6 +163,10 @@ public class MainFormController implements Initializable{
             window.setScene(modifyPartScene);
             window.show();
         }
+        else
+            {
+                errorLabel.setText("No Part Selected for modification\n");
+            }
     }
 
     /**
@@ -195,6 +203,10 @@ public class MainFormController implements Initializable{
             window.setScene(modifyProductScene);
             window.show();
         }
+        else
+        {
+            errorLabel.setText("No product Selected for modification\n");
+        }
     }
     
     /**
@@ -207,11 +219,22 @@ public class MainFormController implements Initializable{
         Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
         if(selectedProduct != null)
         {
-            deleteProduct = Prompt.textBox("Delete Product","Are you sure you want to delete this product?");
-            if(deleteProduct)
+            if(selectedProduct.getAllAssociatedParts().size() > 0)
             {
-                Inventory.deleteProduct(selectedProduct);
+                errorLabel.setText("This product has associated parts");
             }
+            else
+            {
+                deleteProduct = Prompt.textBox("Delete Product","Are you sure you want to delete this product?");
+                if(deleteProduct)
+                {
+                    Inventory.deleteProduct(selectedProduct);
+                }
+            }
+        }
+        else
+        {
+            errorLabel.setText("No product selected for deletion\n");
         }
     }
 
@@ -229,6 +252,10 @@ public class MainFormController implements Initializable{
             {
                 Inventory.deletePart(selectedPart);
             }
+        }
+        else
+        {
+            errorLabel.setText("No part selected for deletion\n");
         }
     }
 
