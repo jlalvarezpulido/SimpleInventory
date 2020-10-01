@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +25,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ModifyProductFormController implements Initializable {
+
+    @FXML
+    private Label errorLabel;
     @FXML
     private TextField modProdIdText;
 
@@ -104,24 +108,40 @@ public class ModifyProductFormController implements Initializable {
     @FXML
     void modSaveButton(ActionEvent event) throws IOException
     {
-        int id = Integer.parseInt(modProdIdText.getText());
-        String name = modProdNameText.getText();
-        int inv = Integer.parseInt(modProductInvText.getText());
-        double price = Double.parseDouble(modProdPriceText.getText());
-        int max = Integer.parseInt(modProdMaxText.getText());
-        int min = Integer.parseInt(modProdMinText.getText());
-        newProduct = new Product(id,name,price,inv,max,min);
-        for(Part modPart: partListBuffer)
+        try
         {
-            newProduct.addAssociatedParts(modPart);
+            int id = Integer.parseInt(modProdIdText.getText());
+            String name = modProdNameText.getText();
+            int inv = Integer.parseInt(modProductInvText.getText());
+            double price = Double.parseDouble(modProdPriceText.getText());
+            int max = Integer.parseInt(modProdMaxText.getText());
+            int min = Integer.parseInt(modProdMinText.getText());
+            if(inv > max){errorLabel.setText("inventory cannot be greater than the maximum\n");}
+            else if(min > max){errorLabel.setText("inventory maximum cannot be less than the minimum\n");}
+            else if(min > inv){errorLabel.setText("inventory cannot be less than the minimum\n");}
+            else
+            {
+                if(partsTotalPrice() > price){errorLabel.setText("parts cost more than the product");}
+                else
+                {
+                    newProduct = new Product(id,name,price,inv,max,min);
+                    for(Part modPart: partListBuffer)
+                    {
+                        newProduct.addAssociatedParts(modPart);
+                    }
+                    Inventory.updateProduct(productIndex,newProduct);
+                    Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+                    Scene goBack = new Scene(goBackParent);
+                    Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                    window.setScene(goBack);
+                    window.show();
+                }
+            }
         }
-        Inventory.updateProduct(productIndex,newProduct);
-
-        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
-        Scene goBack = new Scene(goBackParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(goBack);
-        window.show();
+        catch (NumberFormatException e)
+        {
+            errorLabel.setText("Exception: "+e.getLocalizedMessage());
+        }
     }
     /**
      * cancel button method used to go back to main form without passing any Objects
@@ -172,30 +192,36 @@ public class ModifyProductFormController implements Initializable {
         modBotInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         modBotPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+        errorLabel.setText("");
+
 
     }
-    public void searchHandler(ActionEvent event)
-    {
+    public void searchHandler(ActionEvent event) {
         String search = modProdSearch.getText();
         ObservableList<Part> searchPart = Inventory.lookupPart(search);
-        if(searchPart.size() == 0)
-        {
-            try
-            {
+        if (searchPart.size() == 0) {
+            try {
                 int id = Integer.parseInt(search);
                 Part part = Inventory.lookupPart(id);
-                if(part != null)
-                {
+                if (part != null) {
                     searchPart.add(part);
                 }
                 modTopTV.getSelectionModel().select(Inventory.lookupPart(id));
 
-            }
-            catch (NumberFormatException ignore)
-            {
+            } catch (NumberFormatException ignore) {
 
             }
         }
         modTopTV.setItems(searchPart);
     }
+    public double partsTotalPrice()
+    {
+        double partsTotalPrice = 0;
+        for(Part part: partListBuffer)
+        {
+            partsTotalPrice += part.getPrice();
+        }
+        return  partsTotalPrice;
+    }
+
 }

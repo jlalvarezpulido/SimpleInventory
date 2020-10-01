@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
  */
 public class ModifyPartFormController implements Initializable
 {
+    @FXML private Label errorLabel;
     /**
      *Declarations for the radio buttons and toggle group
      */
@@ -84,6 +85,7 @@ public class ModifyPartFormController implements Initializable
         inheritedGroupModify = new ToggleGroup();
         this.inHouseRadioButtonModify.setToggleGroup(inheritedGroupModify);
         this.outsourcedRadioButtonModify.setToggleGroup(inheritedGroupModify);
+        errorLabel.setText("");
 
     }
 
@@ -104,28 +106,41 @@ public class ModifyPartFormController implements Initializable
      */
     public void modifyPartSaveButtonPushed(ActionEvent actionEvent) throws IOException
     {
-        int id = Integer.parseInt(partIdTextModify.getText());
-        String name = partNameTextModify.getText();
-        double price = Double.parseDouble(partPriceCostTextModify.getText());
-        int inv = Integer.parseInt(partInvTextModify.getText());
-        int min = Integer.parseInt(partMinTextModify.getText());
-        int max = Integer.parseInt(partMaxTextModify.getText());
-        if(inHouseRadioButtonModify.isSelected())
+        try
         {
-            int machineId = Integer.parseInt(partInheritedTextModify.getText());
-            Inventory.updatePart(partIndex, new InHouse(id, name, price, inv, min, max, machineId));
+            int id = Integer.parseInt(partIdTextModify.getText());
+            String name = partNameTextModify.getText();
+            double price = Double.parseDouble(partPriceCostTextModify.getText());
+            int inv = Integer.parseInt(partInvTextModify.getText());
+            int min = Integer.parseInt(partMinTextModify.getText());
+            int max = Integer.parseInt(partMaxTextModify.getText());
+            if(inv > max){errorLabel.setText("inventory cannot be greater than the maximum\n");}
+            else if(min > max){errorLabel.setText("inventory maximum cannot be less than the minimum\n");}
+            else if(min > inv){errorLabel.setText("inventory cannot be less than the minimum\n");}
+            else
+            {
+                if(inHouseRadioButtonModify.isSelected())
+                {
+                    int machineId = Integer.parseInt(partInheritedTextModify.getText());
+                    Inventory.updatePart(partIndex, new InHouse(id, name, price, inv, min, max, machineId));
+                }
+                if(outsourcedRadioButtonModify.isSelected())
+                {
+                    String companyName = partInheritedTextModify.getText();
+                    Inventory.updatePart(partIndex, new Outsourced(id, name ,price, inv, min, max, companyName));
+                }
+                Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+                Scene goBack = new Scene(goBackParent);
+                //This line gets the stage information
+                Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                window.setScene(goBack);
+                window.show();
+            }
         }
-        if(outsourcedRadioButtonModify.isSelected())
+        catch (NumberFormatException e)
         {
-            String companyName = partInheritedTextModify.getText();
-            Inventory.updatePart(partIndex, new Outsourced(id, name ,price, inv, min, max, companyName));
+            errorLabel.setText("Excemptions: "+ e.getLocalizedMessage());
         }
-        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
-        Scene goBack = new Scene(goBackParent);
-        //This line gets the stage information
-        Stage window = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        window.setScene(goBack);
-        window.show();
     }
 
 

@@ -285,5 +285,10 @@
                 </VBox>
             </children>
         </HBox>
+      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="4">
+         <children>
+            <Label fx:id="errorLabel" alignment="TOP_LEFT" prefHeight="184.0" prefWidth="565.0" text="Label" />
+         </children>
+      </StackPane>
     </children>
 </GridPane>

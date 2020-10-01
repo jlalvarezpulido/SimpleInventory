@@ -334,5 +334,10 @@
                 </HBox>
             </children>
         </GridPane>
+      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <children>
+            <Label fx:id="errorLabel" alignment="TOP_LEFT" prefHeight="110.0" prefWidth="529.0" text="Label" />
+         </children>
+      </StackPane>
     </children>
 </GridPane>
