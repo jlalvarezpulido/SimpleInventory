@@ -131,8 +131,6 @@ public class MainFormController implements Initializable{
         productTableView.setItems(products);
     }
 
-
-
     /**
      * Main Forum buttons used to ChangeViews
      *add parts button

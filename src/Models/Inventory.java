@@ -12,12 +12,20 @@ public class Inventory{
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
+    /**
+     * add part only if not null
+     * @param newPart is the product that is added
+     */
     public static void addPart(Part newPart)
     {
         if(newPart != null)
             allParts.add(newPart);
     }
 
+    /**
+     * add product only if not null
+     * @param newProduct is the product that is added
+     */
    public static void addProduct(Product newProduct)
    {
        if(newProduct != null)
@@ -27,6 +35,7 @@ public class Inventory{
      ** linear Search for id in the list
      *      * @param id is the part id
      *      * @return part if object is found
+     *      implemented using regular for loop
      */
     public static Part lookupPart(int partId)
     {
@@ -46,6 +55,7 @@ public class Inventory{
      * linear search
      * @param productId used to search
      * @return the product
+     * implemented using regular for loop
      */
     public static Product lookupProduct(int productId)
     {
@@ -61,6 +71,12 @@ public class Inventory{
         return null;
     }
 
+    /**
+     *
+     * @param partName
+     * @returnreturns list of parts with similar strings
+     * implemented using an enhanced for-each loop
+     */
     public static ObservableList<Part> lookupPart(String partName)
     {
         ObservableList<Part> namedParts = FXCollections.observableArrayList();
@@ -73,6 +89,12 @@ public class Inventory{
         }
         return namedParts;
     }
+
+    /**
+     *
+     * @param productName used to search
+     * @return list of products with similar strings
+     */
     public static ObservableList<Product> lookupProduct(String productName)
     {
         ObservableList<Product> namedProduct = FXCollections.observableArrayList();
@@ -86,18 +108,31 @@ public class Inventory{
         return namedProduct;
     }
 
-
-
-
+    /**
+     *
+     * @param index the index of the observable list
+     * @param selectedPart used to replace the part in that index
+     */
     public static void updatePart(int index, Part selectedPart)
     {
         allParts.set(index,selectedPart);
     }
+
+    /**
+     *
+     * @param index the index of the observable list
+     * @param newProduct used to replace the product in that index
+     */
     public static void updateProduct(int index, Product newProduct)
     {
         allProducts.set(index,newProduct);
     }
 
+    /**
+     *
+     * @param selectedPart is the part selected to delete
+     * @return true if part exits and is deleted
+     */
     public static boolean deletePart(Part selectedPart)
     {
         for(Part part : Inventory.getAllParts())
@@ -110,6 +145,12 @@ public class Inventory{
         }
         return false;
     }
+
+    /**
+     *
+     * @param selectedProduct is the product to be deleted.
+     * @return returns true if product exists and is deleted.
+     */
     public static boolean deleteProduct(Product selectedProduct)
     {
       for(Product product : Inventory.getAllProducts())
@@ -123,7 +164,16 @@ public class Inventory{
       return false;
     }
 
+    /**
+     *
+     * @return the list of all parts in the inventory
+     */
     public static ObservableList<Part> getAllParts(){ return allParts; }
+
+    /**
+     *
+     * @return the list of all products in the inventory
+     */
     public static ObservableList<Product> getAllProducts(){return allProducts;}
 
 
