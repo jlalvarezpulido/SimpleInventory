@@ -109,7 +109,7 @@ public class AddProductFormController implements Initializable {
                 if(partsTotalPrice() > price){errorLabel.setText("parts cost more than the product");}
                 else
                     {
-                        newProduct = new Product(id,name,price,inv,max,min);
+                        newProduct = new Product(id,name,price,inv,min,max);
                         for(Part addPart: partListBuffer)
                         {
                             newProduct.addAssociatedParts(addPart);
