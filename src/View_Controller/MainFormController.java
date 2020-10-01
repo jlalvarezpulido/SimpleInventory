@@ -81,6 +81,7 @@ public class MainFormController implements Initializable{
      */
     public void resultPartHandler(ActionEvent event)
     {
+        errorLabel.setText("");
         String search = partLookUp.getText();
         ObservableList<Part> parts = Inventory.lookupPart(search);
         if(parts.size() == 0)
@@ -97,6 +98,7 @@ public class MainFormController implements Initializable{
             }
             catch (NumberFormatException ignore)
             {
+                errorLabel.setText("Not Found");
             }
         }
         partTableView.setItems(parts);
@@ -107,6 +109,7 @@ public class MainFormController implements Initializable{
      */
     public void resultProductHandler(ActionEvent event)
     {
+        errorLabel.setText("");
         String search = productLookUp.getText();
         ObservableList<Product> products = Inventory.lookupProduct(search);
         if(products.size() == 0)
@@ -121,8 +124,9 @@ public class MainFormController implements Initializable{
                 }
                 productTableView.getSelectionModel().select(Inventory.lookupProduct(id));
             }
-            catch (NumberFormatException ignore)
+            catch (NumberFormatException e)
             {
+                errorLabel.setText("Not found");
             }
         }
         productTableView.setItems(products);

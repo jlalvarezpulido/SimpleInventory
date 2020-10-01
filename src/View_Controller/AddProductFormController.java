@@ -164,6 +164,7 @@ public class AddProductFormController implements Initializable {
     /** searchHandler used to search for parts in the upper table view. */
     public void searchHandler(ActionEvent event)
     {
+        errorLabel.setText("");
         String search = searchAddProductText.getText();
         ObservableList<Part> searchPart = Inventory.lookupPart(search);
         if(searchPart.size() == 0)
@@ -179,9 +180,9 @@ public class AddProductFormController implements Initializable {
                 defaultProductInvTB.getSelectionModel().select(Inventory.lookupPart(id));
 
             }
-            catch (NumberFormatException ignore)
+            catch (NumberFormatException e)
             {
-
+                errorLabel.setText("Not Found");
             }
         }
         defaultProductInvTB.setItems(searchPart);

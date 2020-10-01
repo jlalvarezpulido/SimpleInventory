@@ -201,6 +201,7 @@ public class ModifyProductFormController implements Initializable {
     }
     /** searchHandler used to search for parts in the upper table view. */
     public void searchHandler(ActionEvent event) {
+        errorLabel.setText("");
         String search = modProdSearch.getText();
         ObservableList<Part> searchPart = Inventory.lookupPart(search);
         if (searchPart.size() == 0) {
@@ -212,8 +213,8 @@ public class ModifyProductFormController implements Initializable {
                 }
                 modTopTV.getSelectionModel().select(Inventory.lookupPart(id));
 
-            } catch (NumberFormatException ignore) {
-
+            } catch (NumberFormatException e) {
+                errorLabel.setText("Not Found");
             }
         }
         modTopTV.setItems(searchPart);
