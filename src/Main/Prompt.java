@@ -1,8 +1,6 @@
 package Main;
 
-/**
- * This class is not included in the requirements, I created it to easily created prompt windows
- */
+
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,14 +9,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+/**
+ * This class creates a user defined prompt box.
+ */
 public class Prompt {
 
     private static boolean promptButtonConfirm;
+    /** This method returns a boolean.
+     * @return promptButtonConfirm.
+     * It is set to true if the OK button is pressed.
+     * It is set to false if Cancel button is pressed*/
     public static boolean textBox(String title, String message){
-        /**
-         * setting up a prompt "a are you sure window" to confirm
-         */
         //setting the stage with min width and min height
         Stage prompt = new Stage();
         prompt.initModality(Modality.APPLICATION_MODAL);
@@ -28,8 +29,8 @@ public class Prompt {
 
         Label messageLabel = new Label();
         messageLabel.setText(message);
-        Button yesButton = new Button("yes");
-        Button noButton = new Button("No");
+        Button yesButton = new Button("OK");
+        Button noButton = new Button("Cancel");
 
         yesButton.setOnAction(actionEvent -> {
             promptButtonConfirm = true;

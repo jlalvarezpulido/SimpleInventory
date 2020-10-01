@@ -15,17 +15,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     Stage MainApplication;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
         MainApplication = primaryStage;
         MainApplication.setScene(new Scene(root));
         MainApplication.show();
 
     }
-
+/** This is the main method launches the application. It initialize some preloaded values in the Inventory parts list and products lists.  */
     public static void main(String[] args) {
         Part a1 = new InHouse(1,"Brakes",12.99,15,5,20,101);
         Inventory.addPart(a1);

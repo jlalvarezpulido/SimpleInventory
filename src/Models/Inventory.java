@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
+ * This is the Inventory class. all of its values are static. It contains observable lists of Products and Parts.
  * @author Jose Alvarez Pulido
  */
 public class Inventory{
@@ -12,8 +13,8 @@ public class Inventory{
     private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
 
     /**
-     * add part only if not null
-     * @param newPart is the product that is added
+     * This method adds parts to the allParts List.
+     * @param newPart is the product that is added.
      */
     public static void addPart(Part newPart)
     {
@@ -22,8 +23,8 @@ public class Inventory{
     }
 
     /**
-     * add product only if not null
-     * @param newProduct is the product that is added
+     * This method adds products to the allProducts List.
+     * @param newProduct is the product that is added.
      */
    public static void addProduct(Product newProduct)
    {
@@ -31,7 +32,7 @@ public class Inventory{
            allProducts.add(newProduct);
     }
     /**
-     ** linear Search for id in the list
+     ** linear Search for part using part ID.
      *      * @param id is the part id
      *      * @return part if object is found
      *      implemented using an enhanced for-each loop
@@ -48,10 +49,10 @@ public class Inventory{
     }
 
     /**
-     * linear search
-     * @param productId used to search
-     * @return the product
-     * implemented using regular for loop
+     * linear search for product in the list suing product ID.
+     * @param productId used to search.
+     * @return the product.
+     * implemented using regular for loop.
      */
     public static Product lookupProduct(int productId)
     {
@@ -68,10 +69,10 @@ public class Inventory{
     }
 
     /**
-     *
-     * @param partName
-     * @returnreturns list of parts with similar strings
-     * implemented using an enhanced for-each loop
+     * Linear search for part in part list.
+     * @param partName used to search for part name in part list.
+     * @return namedParts list of parts with similar strings.
+     * implemented using an enhanced for-each loop.
      */
     public static ObservableList<Part> lookupPart(String partName)
     {
@@ -87,9 +88,9 @@ public class Inventory{
     }
 
     /**
-     *
-     * @param productName used to search
-     * @return list of products with similar strings
+     * Linear Search for product in product list.
+     * @param productName used to search.
+     * @return list of products with similar strings.
      */
     public static ObservableList<Product> lookupProduct(String productName)
     {
@@ -105,9 +106,9 @@ public class Inventory{
     }
 
     /**
-     *
-     * @param index the index of the observable list
-     * @param selectedPart used to replace the part in that index
+     * Updates parts replacing parts in list using index.
+     * @param index the index of the observable list.
+     * @param selectedPart used to replace the part in that index.
      */
     public static void updatePart(int index, Part selectedPart)
     {
@@ -115,7 +116,7 @@ public class Inventory{
     }
 
     /**
-     *
+     * Updates products replacing products in list using index.
      * @param index the index of the observable list
      * @param newProduct used to replace the product in that index
      */
@@ -125,9 +126,9 @@ public class Inventory{
     }
 
     /**
-     *
-     * @param selectedPart is the part selected to delete
-     * @return true if part exits and is deleted
+     * Deletes parts in the list.
+     * @param selectedPart is the part selected to delete.
+     * @return true if part exits and is deleted.
      */
     public static boolean deletePart(Part selectedPart)
     {
@@ -143,7 +144,7 @@ public class Inventory{
     }
 
     /**
-     *
+     * Deletes products in the list.
      * @param selectedProduct is the product to be deleted.
      * @return returns true if product exists and is deleted.
      */
@@ -161,14 +162,14 @@ public class Inventory{
     }
 
     /**
-     *
-     * @return the list of all parts in the inventory
+     * Method used to get all parts in the Inventory.
+     * @return the list of all parts in the inventory.
      */
     public static ObservableList<Part> getAllParts(){ return allParts; }
 
     /**
-     *
-     * @return the list of all products in the inventory
+     * Method used to get all products in the Inventory.
+     * @return the list of all products in the Inventory.
      */
     public static ObservableList<Product> getAllProducts(){return allProducts;}
 
