@@ -70,10 +70,6 @@ public class MainFormController implements Initializable{
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-        //select get selection to highlight search
-       // partTableView.getSelectionModel().select(Inventory.lookupPart(1));
-        //productTableView.getSelectionModel().select(Inventory.lookupProduct(1));
-
     }
 
     /**
@@ -93,12 +89,10 @@ public class MainFormController implements Initializable{
                 {
                     parts.add(part);
                 }
-
                 partTableView.getSelectionModel().select(Inventory.lookupPart(id));
             }
             catch (NumberFormatException ignore)
             {
-
             }
         }
         partTableView.setItems(parts);
@@ -125,7 +119,6 @@ public class MainFormController implements Initializable{
             }
             catch (NumberFormatException ignore)
             {
-
             }
         }
         productTableView.setItems(products);

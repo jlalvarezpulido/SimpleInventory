@@ -10,7 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -40,6 +43,12 @@ public class AddPartFormController implements Initializable {
     public TextField partInheritedTextAdd;
     public TextField partMinTextAdd;
     public TextField partNameTextAdd;
+    /**
+     * one way of generating unique IDs
+     * starts at the count of the size of all parts
+     * then adds 1 each time the genID method is used
+     */
+    static int count = Inventory.getAllParts().size();
 
 
 
@@ -67,10 +76,8 @@ public class AddPartFormController implements Initializable {
     @FXML
     public void addPartSaveButtonPushed(ActionEvent event) throws IOException
     {
-        /*
-        auto generate IDs
-         */
-        int id = Inventory.getAllParts().size() + 1;
+        // genID method is used everytime the button is pushed
+        int id = genId();
         String name = partNameTextAdd.getText();
         double price = Double.parseDouble(partPriceCostTextAdd.getText());
         int inv = Integer.parseInt(partInvTextAdd.getText());
@@ -114,4 +121,13 @@ public class AddPartFormController implements Initializable {
             inheritedLabelAdd.setText("Company Name");
         }
     }
+
+    /**
+     *
+     * @return count with a new tally
+     */
+     public int genId()
+     {
+     return ++count;
+     }
 }

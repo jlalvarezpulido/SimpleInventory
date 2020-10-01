@@ -1,7 +1,6 @@
 package Models;
 
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -35,16 +34,13 @@ public class Inventory{
      ** linear Search for id in the list
      *      * @param id is the part id
      *      * @return part if object is found
-     *      implemented using regular for loop
+     *      implemented using an enhanced for-each loop
      */
     public static Part lookupPart(int partId)
     {
-        ObservableList<Part> allParts = getAllParts();
-        for(int i = 0; i < allParts.size(); i++)
-        {
-            Part part = allParts.get(i);
-            if(part.getId() == partId)
-            {
+        ObservableList<Part> searchParts = getAllParts();
+        for (Part part : searchParts) {
+            if (part.getId() == partId) {
                 return part;
             }
         }
@@ -80,7 +76,7 @@ public class Inventory{
     public static ObservableList<Part> lookupPart(String partName)
     {
         ObservableList<Part> namedParts = FXCollections.observableArrayList();
-        for(Part part : getAllParts())
+        for(Part part : Inventory.getAllParts())
         {
             if(part.getName().contains(partName))
             {

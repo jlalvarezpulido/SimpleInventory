@@ -4,7 +4,6 @@ import Main.Prompt;
 import Models.Inventory;
 import Models.Part;
 import Models.Product;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,6 +61,7 @@ public class AddProductFormController implements Initializable {
 
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
+    static int count = Inventory.getAllProducts().size();
 
     @FXML
     public void addPartToProductButton(ActionEvent event) {
@@ -89,7 +89,7 @@ public class AddProductFormController implements Initializable {
         /*
           auto generate IDs
          */
-        int id = Inventory.getAllProducts().size() + 1;
+        int id = genId();
         String name = nameProductAddText.getText();
         double price = Double.parseDouble(priceProductAddText.getText());
         int inv = Integer.parseInt(invProductAddText.getText());
@@ -165,5 +165,8 @@ public class AddProductFormController implements Initializable {
             }
         }
         defaultProductInvTB.setItems(searchPart);
+    }
+    public int genId(){
+       return  ++count;
     }
 }
