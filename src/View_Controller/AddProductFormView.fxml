@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,10 +16,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddProductFormController">
+<GridPane prefHeight="599.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddProductFormController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="584.0" minWidth="437.0" prefWidth="550.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="563.0" minWidth="10.0" prefWidth="450.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="258.38006591796875" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
@@ -31,11 +32,8 @@
             <Pane prefHeight="464.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
-            <Pane prefHeight="464.0" prefWidth="30.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="251.0" prefWidth="16.0" BorderPane.alignment="CENTER" />
          </right>
-         <bottom>
-            <Pane prefHeight="66.0" prefWidth="550.0" BorderPane.alignment="CENTER" />
-         </bottom>
          <top>
             <Pane prefHeight="30.0" prefWidth="550.0" BorderPane.alignment="CENTER" />
          </top>
@@ -105,7 +103,7 @@
                                        <children>
                                           <StackPane prefHeight="150.0" prefWidth="200.0">
                                              <children>
-                                                <TextField fx:id="invProductAddText" />
+                                                <TextField fx:id="invProductAddText" prefHeight="27.0" prefWidth="109.0" />
                                              </children>
                                           </StackPane>
                                        </children>
@@ -164,12 +162,12 @@
                                  <children>
                                     <VBox prefHeight="47.0" prefWidth="125.0">
                                        <children>
-                                          <StackPane prefHeight="150.0" prefWidth="200.0" />
+                                          <StackPane prefHeight="50.0" prefWidth="90.0" />
                                        </children>
                                     </VBox>
                                     <VBox layoutX="10.0" layoutY="10.0" prefHeight="47.0" prefWidth="125.0">
                                        <children>
-                                          <StackPane prefHeight="150.0" prefWidth="200.0" />
+                                          <StackPane prefHeight="50.0" prefWidth="91.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -192,7 +190,7 @@
                                  <children>
                                     <VBox prefHeight="47.0" prefWidth="125.0">
                                        <children>
-                                          <StackPane prefHeight="150.0" prefWidth="200.0">
+                                          <StackPane prefHeight="50.0" prefWidth="98.0">
                                              <children>
                                                 <Label text="Min" />
                                              </children>
@@ -217,8 +215,11 @@
                </children>
             </VBox>
          </center>
+         <bottom>
+            <AnchorPane prefHeight="151.0" prefWidth="554.0" BorderPane.alignment="CENTER" />
+         </bottom>
       </BorderPane>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="51.0" prefWidth="207.0">
          <children>
             <VBox prefHeight="54.0" prefWidth="300.0">
                <children>
@@ -334,5 +335,10 @@
             </TableView>
          </children>
       </GridPane>
+      <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <children>
+            <Label fx:id="errorLabel" alignment="TOP_LEFT" prefHeight="117.0" prefWidth="516.0" text="Label" wrapText="true" />
+         </children>
+      </StackPane>
    </children>
 </GridPane>

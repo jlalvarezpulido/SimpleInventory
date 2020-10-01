@@ -114,7 +114,7 @@ public class AddPartFormController implements Initializable {
         }
         catch (NumberFormatException e)
         {
-            errorLabel.setText(e.getLocalizedMessage());
+            errorLabel.setText("Exception: "+e.getLocalizedMessage());
         }
     }
 

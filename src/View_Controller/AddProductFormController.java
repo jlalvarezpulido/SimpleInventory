@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 public class AddProductFormController implements Initializable {
 
     @FXML
+    private Label errorLabel;
+    @FXML
     private TextField productIdAddText;
     @FXML
     private TextField nameProductAddText;
@@ -63,7 +65,7 @@ public class AddProductFormController implements Initializable {
 
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
-    static int count = Inventory.getAllProducts().size();
+    static int count = Inventory.getAllProducts().size() + 1;
 
     @FXML
     public void addPartToProductButton(ActionEvent event) {
@@ -88,34 +90,44 @@ public class AddProductFormController implements Initializable {
 
     @FXML
     public void saveProductButton(ActionEvent event) throws IOException {
-        /*
+        try
+        {
+            /*
           auto generate IDs
          */
-        int id = genId();
-
-        String name = nameProductAddText.getText();
-
-        double price = Double.parseDouble(priceProductAddText.getText());
-
-        int inv = Integer.parseInt(invProductAddText.getText());
-
-        int max = Integer.parseInt(maxProductAddText.getText());
-
-        int min = Integer.parseInt(minProductAddText.getText());
-
-        newProduct = new Product(id,name,price,inv,max,min);
-        for(Part addPart: partListBuffer)
-        {
-            newProduct.addAssociatedParts(addPart);
+            int id = count;
+            String name = nameProductAddText.getText();
+            double price = Double.parseDouble(priceProductAddText.getText());
+            int inv = Integer.parseInt(invProductAddText.getText());
+            int max = Integer.parseInt(maxProductAddText.getText());
+            int min = Integer.parseInt(minProductAddText.getText());
+            if(inv > max){errorLabel.setText("inventory cannot be greater than the maximum\n");}
+            else if(min > max){errorLabel.setText("inventory maximum cannot be less than the minimum\n");}
+            else if(min > inv){errorLabel.setText("inventory cannot be less than the minimum\n");}
+            else
+            {
+                if(partsTotalPrice() > price){errorLabel.setText("parts cost more than the product");}
+                else
+                    {
+                        newProduct = new Product(id,name,price,inv,max,min);
+                        for(Part addPart: partListBuffer)
+                        {
+                            newProduct.addAssociatedParts(addPart);
+                        }
+                        Inventory.addProduct(newProduct);
+                        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
+                        Scene goBack = new Scene(goBackParent);
+                        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                        window.setScene(goBack);
+                        window.show();
+                        genId();
+                    }
+            }
         }
-        Inventory.addProduct(newProduct);
-
-        Parent goBackParent = FXMLLoader.load(getClass().getResource("/View_Controller/MainFormView.fxml"));
-        Scene goBack = new Scene(goBackParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(goBack);
-        window.show();
-
+        catch (NumberFormatException e)
+        {
+            errorLabel.setText("Exception: "+e.getLocalizedMessage());
+        }
     }
 
     /**
@@ -146,9 +158,7 @@ public class AddProductFormController implements Initializable {
         addedInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
 
-
-
-
+        errorLabel.setText("");
     }
     public void searchHandler(ActionEvent event)
     {
@@ -174,7 +184,16 @@ public class AddProductFormController implements Initializable {
         }
         defaultProductInvTB.setItems(searchPart);
     }
-    public int genId(){
-       return  ++count;
+    public void genId(){
+       ++count;
+    }
+    public double partsTotalPrice()
+    {
+        double partsTotalPrice = 0;
+        for(Part part: partListBuffer)
+        {
+            partsTotalPrice += part.getPrice();
+        }
+        return  partsTotalPrice;
     }
 }
