@@ -67,14 +67,16 @@ public class AddProductFormController implements Initializable {
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
     static int count = Inventory.getAllProducts().size() + 1;
-    /** adds parts to the bufferList. */
+    /** adds parts to the bufferList.
+     * @param event this event is triggered the moment the button is pushed. */
     @FXML//adds products with a not null exceptions
     public void addPartToProductButton(ActionEvent event) {
         Part partSelected = defaultProductInvTB.getSelectionModel().getSelectedItem();
         if(partSelected != null)
             partListBuffer.add(partSelected);
     }
-    /** Removes parts from buffer List. */
+    /** Removes parts from buffer List.
+     * @param event The even is triggered at the press of the button. */
     @FXML//removes associated parts
     void removeAssociationButton(ActionEvent event) {
         boolean deletePart;
@@ -88,7 +90,15 @@ public class AddProductFormController implements Initializable {
             }
         }
     }
-    /** Save Product button used to save products into Inventory. the values are parsed from the text fields.*/
+    /**
+     * Save button method used to save the data.
+     * The try catch is used on this method to catch runtime errors where a string could be inputted into a text field that is expecting another data type.
+     * create a part using wrapper methods to get the text and form it.
+     * and create the product and add it to Inventory.
+     * @throws IOException used to change the view when pressed.
+     * @param event The event represents a press of the button.
+     *              In the future I would implement many try catches for each particular assignment so that a specific message would be outputted for each type of runtime errors
+     */
     @FXML
     public void saveProductButton(ActionEvent event) throws IOException {
         try
@@ -132,7 +142,9 @@ public class AddProductFormController implements Initializable {
     }
 
     /**
-     * cancel button method used to go back to main form without passing any Objects
+     * cancel button method used to go back to main form without passing any Objects.
+     * @param actionEvent This event is triggered when the button is pushed.
+     * @throws IOException this is used to change views.
      */
     @FXML
     public void cancelButtonPushed(ActionEvent actionEvent) throws IOException {
@@ -144,7 +156,8 @@ public class AddProductFormController implements Initializable {
     }
 
 
-    /** method used to initialize table columns and table views. */
+    /** method used to initialize table columns and table views.
+     * */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         defaultProductInvTB.setItems(Inventory.getAllParts());
@@ -159,10 +172,16 @@ public class AddProductFormController implements Initializable {
         addedPartCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         addedInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         addedPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-
+        // label used to display error messages.
         errorLabel.setText("");
     }
-    /** searchHandler used to search for parts in the upper table view. */
+    /** searchHandler used to search for parts in the upper table view.
+     * @param event This Event is triggered when the Search bar is pressed enter.
+     * Uses a try catch when searching for ID values which are numeric and are passed by the function.
+     * Before using the try catch I ran into errors where error message will pop up in the terminal. The error was that String search was used to lookupPart by the id which is an int.
+     * With the try catch that error is no longer displayed.
+     * I could implement this better separating the methods or using a seperate buttons to search for IDs and String names.
+     * A try catch will still be needed for the ID search however.*/
     public void searchHandler(ActionEvent event)
     {
         errorLabel.setText("");
@@ -174,12 +193,11 @@ public class AddProductFormController implements Initializable {
             {
                 int id = Integer.parseInt(search);
                 Part part = Inventory.lookupPart(id);
-                if(part != null)
+                if(part != null)//if not null
                 {
                     searchPart.add(part);
                 }
-                defaultProductInvTB.getSelectionModel().select(Inventory.lookupPart(id));
-
+                defaultProductInvTB.getSelectionModel().select(Inventory.lookupPart(id));//sets the table view to the new one, no values are lost.
             }
             catch (NumberFormatException e)
             {
@@ -188,11 +206,19 @@ public class AddProductFormController implements Initializable {
         }
         defaultProductInvTB.setItems(searchPart);
     }
-    /** adds to the count when it is called. Only executes if the save button executes without exceptions. */
+    /**
+     * Generates an ID and its adds it count. count is static.
+     * At first I simply would add one to the size of the list.
+     * This caused a logical error when a product was deleted and the size was less than value of the IDs.
+     * This error made it possible for two products to have the same ID thus not meeting the requirement.
+     * In the future I would like to create a that both generates the ID and sets it in the creation of the product.
+     */
     public void genId(){
        ++count;
     }
-    /** calculates the total price in the part buffer. */
+    /** calculates the total price in the part buffer.
+     * @return The price of all the parts added up in the part buffer.
+     * Using a for loop to make sure that each part is counted.*/
     public double partsTotalPrice()
     {
         double partsTotalPrice = 0;

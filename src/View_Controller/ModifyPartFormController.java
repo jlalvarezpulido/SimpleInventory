@@ -48,7 +48,12 @@ public class ModifyPartFormController implements Initializable
     @FXML private TextField partMinTextModify;
 
     public int partIndex;
-/** Sends part from the main form to the modify part form. */
+/** Sends part from the main form to the modify part form.
+ * @param selectedPart is the part that is selected from the main form Part Table View
+ * I then set the text fields using valueOf for each field.
+ * I then had to branch it into two possibilities. InHouse or OutSourced each sets the last text field and the radio button.
+ * I encoutered an error where the inheritedLabel would get stuck.
+ * I fixed this by also setting the value of that label at run time. */
     public void sendPart(Part selectedPart)
     {
         partIdTextModify.setText(String.valueOf(selectedPart.getId()));
@@ -71,7 +76,8 @@ public class ModifyPartFormController implements Initializable
         }
 
     }
-    /** Gets the part Index from the sent items in the main form. */
+    /** Gets the part Index from the sent items in the main form.
+     * @param index is the index for the Part from the observable list. */
     public void getPartIndex(int index){
         partIndex = index;
     }
@@ -93,6 +99,8 @@ public class ModifyPartFormController implements Initializable
 
     /**
      * cancel button method used to go back to main form without passing any Objects
+     * @param actionEvent Event is triggered when the cancel button is pressed.
+     * @throws IOException Needed to change the table view back to the main screen.
      */
     public void cancelButtonPushed(ActionEvent actionEvent) throws IOException
     {
@@ -104,7 +112,14 @@ public class ModifyPartFormController implements Initializable
         window.show();
     }
     /**
-     * Save button method used to save the data
+     * Save button method used to save the data.
+     * The try catch is used on this method to catch runtime errors where a string could be inputted into a text field that is expecting another data type.
+     * create a part using wrapper methods to get the text and form it.
+     * distinguish whether the part is inHouse or Outsourced with the if statements.
+     * and create the part and add it to Inventory.
+     * @throws IOException used to change the view when pressed.
+     * @param actionEvent The event represents a press of the button.
+     *              In the future I would implement many try catches for each particular assignment so that a specific message would be outputted for each type of runtime errors
      */
     public void modifyPartSaveButtonPushed(ActionEvent actionEvent) throws IOException
     {
@@ -147,8 +162,8 @@ public class ModifyPartFormController implements Initializable
 
 
     /**
-     * Radio button selection method
-     * controls the label name
+     * Radio button selection method.
+     * controls the label name.
      */
     public void changeRadioButtonModify()
     {

@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Initiates the Application, sets Stage.
+ * Initiates the Application, sets Stage. One of the main issues that I came across was declaring observable list. My aha moment was when I reliazed it could be declared as an observable array list.
+ * I've learned a lot from this project and one of the main things that I would fix for future projects would be to use the same naming method for all my variables and sticking to it within all my classes.
+ * Another thing I would fix would be to add Javadoc comments in the moment and not waiting to do it after I'm finished. It would save alot of time and it would be helpful to look at the comment and remeber what I did after the fact.
  * @author Jose Alvarez Pulido
  */
 public class Main extends Application {
@@ -23,7 +25,8 @@ public class Main extends Application {
         MainApplication.show();
 
     }
-/** This is the main method launches the application. It initialize some preloaded values in the Inventory parts list and products lists.  */
+/** This is the main method launches the application. It initialize some preloaded values in the Inventory parts list and products lists.
+ * @param args this is initiates the main method */
     public static void main(String[] args) {
         Part a1 = new InHouse(1,"Brakes",12.99,15,5,20,101);
         Inventory.addPart(a1);

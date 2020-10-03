@@ -51,9 +51,6 @@ public class MainFormController implements Initializable{
     @FXML private TableColumn<Product, Integer> productTableInvCol;
     @FXML private TableColumn<Product, Double> productTablePriceCol;
 
-    private ObservableList<Part> partsInvSearch;
-    private ObservableList<Product> productsInvSearch;
-
     /**
      * Initializes the Main form class
      */
@@ -72,16 +69,21 @@ public class MainFormController implements Initializable{
         productTableNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         productTableInvCol.setCellValueFactory(new PropertyValueFactory<>("stock"));
         productTablePriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        errorLabel.setText("");
+        errorLabel.setText("");//used to display error messages.
 
     }
 
     /**
-     * resultPartHandler sets the tableview for only searched parts
-     */
+     * resultPartHandler sets the tableview for only searched parts.
+     * @param event This Event is triggered when the Search bar is pressed enter.
+     * Uses a try catch when searching for ID values which are numeric and are passed by the function.
+     * Before using the try catch I ran into errors where error message will pop up in the terminal. The error was that String search was used to lookupPart by the id which is an int.
+     * With the try catch that error is no longer displayed.
+     * I could implement this better separating the methods or using a separate buttons to search for IDs and String names.
+     * A try catch will still be needed for the ID search however.*/
     public void resultPartHandler(ActionEvent event)
     {
-        errorLabel.setText("");
+        errorLabel.setText("");//resets the error label.
         String search = partLookUp.getText();
         ObservableList<Part> parts = Inventory.lookupPart(search);
         if(parts.size() == 0)
@@ -104,12 +106,16 @@ public class MainFormController implements Initializable{
         partTableView.setItems(parts);
     }
     /**
-     *
-     * resultProductHandler sets the tableview for only searched parts
-     */
+     * resultProductHandler sets the tableview for only searched parts.
+     * @param event This Event is triggered when the Search bar is pressed enter.
+     * Uses a try catch when searching for ID values which are numeric and are passed by the function.
+     * Before using the try catch I ran into errors where error message will pop up in the terminal. The error was that String search was used to lookupPart by the id which is an int.
+     * With the try catch that error is no longer displayed.
+     * I could implement this better separating the methods or using a separate buttons to search for IDs and String names.
+     * A try catch will still be needed for the ID search however.*/
     public void resultProductHandler(ActionEvent event)
     {
-        errorLabel.setText("");
+        errorLabel.setText("");//resets the error label.
         String search = productLookUp.getText();
         ObservableList<Product> products = Inventory.lookupProduct(search);
         if(products.size() == 0)
@@ -133,8 +139,10 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     * Main Forum buttons used to ChangeViews
-     *add parts button
+     * Main Forum buttons used to ChangeViews.
+     * add parts button.
+     * @param actionEvent This event is triggered when the button is pressed.
+     * @throws IOException This is needed to change views.
      */
     public void addPartsButton(ActionEvent actionEvent) throws IOException {
         Parent addPartParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddPartFormView.fxml"));
@@ -145,7 +153,16 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     *modify parts button
+     * modify parts button.
+     * @param actionEvent This event is triggered when the button is pressed.
+     * @throws IOException This exception is needed to change between views.
+     * The FXML Loader is made an instance of. This lets me pass values from one Controller to the other.
+     * The controller is declared as loader.getController()
+     * This allows the controller to use methods that are not in this class and therefore pass the information.
+     * I had many issues with this method at first.
+     * I encountered logical errors when nothing was selected in the Table View.
+     * It was corrected by making an instance of FXML loader and declaring the controller as loader.getController().
+     * Additionally I added a error label to display to the uer when nothing is being selected.
      */
     public void modifyPartsButton(ActionEvent actionEvent) throws IOException{
 
@@ -157,7 +174,7 @@ public class MainFormController implements Initializable{
 
         Part partSent = partTableView.getSelectionModel().getSelectedItem();
         int indexSent = partTableView.getSelectionModel().getSelectedIndex();
-        if(partSent != null)
+        if(partSent != null) // I had errors occur because nothing was selected.
         {
             modifyPartController.sendPart(partSent);
             modifyPartController.getPartIndex(indexSent);
@@ -174,7 +191,9 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     *add  products button
+     *add  products button.
+     * @param actionEvent Event is triggered when the button is pushed.
+     * @throws IOException Is needed to change views.
      */
     public void addProductsButton(ActionEvent actionEvent) throws IOException{
         Parent addProductParent = FXMLLoader.load(getClass().getResource("/View_Controller/AddProductFormView.fxml"));
@@ -185,8 +204,15 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     *modify products button
-     * defined the fxml loader to load the modifyProduct controller to hand off information between controllers.
+     * modify parts button.
+     * @param actionEvent This event is triggered when the button is pressed.
+     * @throws IOException This exception is needed to change between views.
+     * The FXML Loader is made an instance of. This lets me pass values from one Controller to the other.
+     * The controller is declared as loader.getController()
+     * This allows the controller to use methods that are not in this class and therefore pass the information.
+     * I had many issues with this method at first.
+     * I encountered logical errors when nothing was selected in the Table View.
+     * It was corrected by making an instance of FXML loader and declaring the controller as loader.getController().
      */
     public void modifyProductsButton(ActionEvent actionEvent) throws IOException{
 
@@ -214,8 +240,12 @@ public class MainFormController implements Initializable{
     }
     
     /**
-     * Main Forum buttons used to delete Objects
-     * delete products button
+     * Main Forum buttons used to delete Objects.
+     * @param actionEvent This event is triggered when the delete button is pressed.
+     * Some errors that I encountered where getting the associated list and using it so that the items is not deleted.
+     * This was solved by looking using the products getAllAssociatedParts() method. Knowing that this was an observable list I knew I could get its size using the .size().
+     * I made sure that if it was greater than zero an error message will display and nothing else would be done.
+     *  Else I would prompt the delete box prompt and carryout the deletion using the static Inventory .deleteProduct.
      */
     public void deleteProductsButton(ActionEvent actionEvent)
     {
@@ -243,7 +273,9 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     * delete parts button
+     * delete parts button used to delete Parts.
+     * After solving the problem from the deleteProductsButton implementing a similar structure here was easy.
+     * @param actionEvent Is triggered when the delete button is pressed.
      */
     public void deletePartsButton(ActionEvent actionEvent)
     {
@@ -264,7 +296,11 @@ public class MainFormController implements Initializable{
     }
 
     /**
-     * button to exit the application
+     * button to exit the application.
+     * I encountered an error when trying to close the stage. That is because the stage is set in Main and Main is not the controller for the view.
+     * The way I solved this issue was by going to the source using .getSource and casting a Node to SOURCE.
+     * I then got the scene from the SOURCE and the window. and closed the stage.
+     * @param actionEvent Event is triggered when the exit button is pressed.
      */
     public void exitApplicationButtonPushed(ActionEvent actionEvent) {
         boolean exitConfirm;//using the Prompt class to return a bool to prompt a second window to exit

@@ -33,8 +33,8 @@ public class Inventory{
     }
     /**
      ** linear Search for part using part ID.
-     *      * @param id is the part id
-     *      * @return part if object is found
+     *@param partId is the part id
+     *@return part if object is found
      *      implemented using an enhanced for-each loop
      */
     public static Part lookupPart(int partId)

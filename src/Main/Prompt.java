@@ -15,10 +15,12 @@ import javafx.stage.Stage;
 public class Prompt {
 
     private static boolean promptButtonConfirm;
-    /** This method returns a boolean.
+    /** This method returns a boolean. It is set to true if the OK button is pressed.
+     * It is set to false if Cancel button is pressed
      * @return promptButtonConfirm.
-     * It is set to true if the OK button is pressed.
-     * It is set to false if Cancel button is pressed*/
+     * @param title is the title of the text prompt window.
+     * @param message is the message that will be displayed in the prompt window.
+     * */
     public static boolean textBox(String title, String message){
         //setting the stage with min width and min height
         Stage prompt = new Stage();

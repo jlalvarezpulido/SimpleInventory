@@ -83,15 +83,18 @@ public class ModifyProductFormController implements Initializable {
     private ObservableList<Part> partListBuffer = FXCollections.observableArrayList();
     public Product newProduct;
     public int productIndex;
-    /** This method adds parts the partListBuffer. the buffer is added to associated parts when save button is pressed. */
+    /** This method adds parts the partListBuffer. the buffer is added to associated parts when save button is pressed.
+     * @param event is triggered when the button is pushed. */
     @FXML
     void addModButton(ActionEvent event)
     {
         Part partSelected = modTopTV.getSelectionModel().getSelectedItem();
-        if(partSelected != null)
+        if(partSelected != null)//exception handling.
             partListBuffer.add(partSelected);
     }
-    /** This method removes parts from the partListBuffer.*/
+    /** This method removes parts from the partListBuffer.
+     * @param event Is triggered when the button is pushed.
+     * Since this is a deletion a prompt is displayed and part is removed from the buffer. */
     @FXML
     void modRemoveAssociationButton(ActionEvent event) {
         boolean deletePart;
@@ -105,9 +108,15 @@ public class ModifyProductFormController implements Initializable {
             }
         }
     }
-    /** This method is for the save button.
-     * try catch exception handling
-     * if statements to handle logical errors.*/
+    /**
+     * Save button method used to save the data.
+     * The try catch is used on this method to catch runtime errors where a string could be inputted into a text field that is expecting another data type.
+     * create a part using wrapper methods to get the text and form it.
+     * and create the product and add it to Inventory.
+     * @throws IOException used to change the view when pressed.
+     * @param event The event represents a press of the button.
+     *              In the future I would implement many try catches for each particular assignment so that a specific message would be outputted for each type of runtime errors
+     */
     @FXML
     void modSaveButton(ActionEvent event) throws IOException
     {
@@ -147,7 +156,9 @@ public class ModifyProductFormController implements Initializable {
         }
     }
     /**
-     * cancel button method used to go back to main form without passing any Objects
+     * cancel button method used to go back to main form without passing any Objects.
+     * @param actionEvent Is triggered when the button is pressed.
+     * @throws IOException Is needed to change the view back to main screen.
      */
     @FXML
     public void cancelButtonPushed(ActionEvent actionEvent) throws IOException
@@ -158,7 +169,15 @@ public class ModifyProductFormController implements Initializable {
         window.setScene(goBack);
         window.show();
     }
-    /** This method is used to send products from main form table view.*/
+    /**
+     * This method is used to send products from main form table view.
+     * @param selectedProduct The product that is carried over from the Main screen Product Table View.
+     * I had trouble sending over the associated parts, I originally had the botom table view display the associated parts.
+     * However I ran into an issue when removing parts. Since I deleted them using the product method it would be saved even if the cancel button was pressed.
+     * Thus causing a logical error. I fixed this by implementing a similar list as in the addProductsController.
+     * The solution was another partListBuffer. So in order to send them over I used an enhanced for loop. to add all the parts to the buffer.
+     * So no changes would be made to the AssociatedPartsList unless the Save button was pressed because I would just replace the list at run time when save button is pressed.
+     */
     public void sendProduct(Product selectedProduct)
     {
         modProdIdText.setText(String.valueOf(selectedProduct.getId()));
@@ -173,7 +192,8 @@ public class ModifyProductFormController implements Initializable {
         }
 
     }
-    /** This method passes the index of the product sent*/
+    /** This method passes the index of the product sent
+     * @param index this is index sent from the main screen of the product that was being sent over. The index refers to its place in the Observable list.*/
     public void sendIndex(int index){
         productIndex = index;
     }
@@ -199,7 +219,13 @@ public class ModifyProductFormController implements Initializable {
 
 
     }
-    /** searchHandler used to search for parts in the upper table view. */
+    /** searchHandler used to search for parts in the upper table view.
+     * @param event This Event is triggered when the Search bar is pressed enter.
+     * Uses a try catch when searching for ID values which are numeric and are passed by the function.
+     * Before using the try catch I ran into errors where error message will pop up in the terminal. The error was that String search was used to lookupPart by the id which is an int.
+     * With the try catch that error is no longer displayed.
+     * I could implement this better separating the methods or using a seperate buttons to search for IDs and String names.
+     * A try catch will still be needed for the ID search however.*/
     public void searchHandler(ActionEvent event) {
         errorLabel.setText("");
         String search = modProdSearch.getText();
@@ -219,7 +245,9 @@ public class ModifyProductFormController implements Initializable {
         }
         modTopTV.setItems(searchPart);
     }
-    /** calculates the total price in the part buffer. */
+    /** calculates the total price in the part buffer.
+     * @return The price of all the parts added up in the part buffer.
+     * Using a for loop to make sure that each part is counted.*/
     public double partsTotalPrice()
     {
         double partsTotalPrice = 0;
